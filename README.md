@@ -1,1 +1,1 @@
-# gamerecs-webapp
+# gamerecs_webapp
