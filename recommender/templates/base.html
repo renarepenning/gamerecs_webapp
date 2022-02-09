@@ -17,9 +17,7 @@
       {% block sidebar %}
         <ul class="sidebar-nav">
           <li><a href="{% url 'front-page' %}">Home</a></li>
-          <li><a href="{% url 'rec_home' %}">Project info</a></li
-          <li><a href="">tbd All Users</a></li>
-          <li><a href="">tbd All Games</a></li>
+          <li><a href="{% url 'rec_home' %}">Recommender</a></li
         </ul>
      {% endblock %}
       </div>
@@ -28,3 +26,23 @@
   </div>
 </body>
 </html>
+
+<!--- Understand the Code:
+-- https://data-flair.training/blogs/django-static-files-handling/ --
+In this code, you must be noticing that we used some new template tags. 
+The tag,  block body_block  is used for template inheritance. 
+We are actually replacing this section of code between  block body_block  …. endblock . 
+The name body_block can be of your choice.
+There can be multiple blocks of this type. It’s up to you to change them or use them as it is.
+
+OTHERS TEMPLATE:
+
+% extends "base.html" %
+% block body_block %
+    <h2> search for / </h2>
+    <h1>{{ context.k1 }}</h1>
+% endblock %
+
+* TOOK OUT { BC IT SAW ERRORS
+
+-->
