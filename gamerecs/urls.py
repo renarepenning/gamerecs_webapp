@@ -22,5 +22,5 @@ urlpatterns = [
 
     path('', views.home, name="front-page"), # path for home page
 
-    path('user/', include('recommender.urls')), # sends urls with user prefix to user file
+    path('recommender/', include('recommender.urls')), # sends urls with user prefix to user file
 ]
