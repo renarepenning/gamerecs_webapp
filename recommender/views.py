@@ -8,7 +8,7 @@ from django.contrib import messages
 # request handler!
 
 # create view ==> add to urls.py here, then in parent class.
-def user_home(request):
+def rec_home(request):
     #return HttpResponse('Welcome to our capstone website \n user page')
     '''context = {
         'num_users': myUser.objects.all().count(),
@@ -16,4 +16,4 @@ def user_home(request):
     }'''
 
 
-    return render(request, 'index.html')# , context=context)
+    return render(request, 'rec_home.html')# , context=context)
