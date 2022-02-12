@@ -1,4 +1,4 @@
 django
 gunicorn
-django-heroku
+django_heroku
 requests
