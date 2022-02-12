@@ -4,5 +4,9 @@
 
 ### branches
 
-deploy <-- production <-- rena
-                      <--  emily, etc
+deploy
+^
+production 
+^     ^
+rena   emily
+                  
