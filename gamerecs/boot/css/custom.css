@@ -1,0 +1,17 @@
+.title {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f79d81;
+    padding: 10px;
+    color: #fa0202;
+}
+
+.navbar-brand {
+    color: #e62e2e;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1349c;
+}
