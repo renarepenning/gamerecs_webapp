@@ -10,10 +10,12 @@ def index(request):
     return render(request, "index.html")
 
 
-#'''from .models import xyz'''
-# request handler!
+def db(request):
 
-# create view ==> add to urls.py here, then in parent class.
-def rec_home(request):
+    greeting = Greeting()
+    greeting.save()
+
+    greetings = Greeting.objects.all()
 
     return render(request, "db.html", {"greetings": greetings})
+
