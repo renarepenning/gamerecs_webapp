@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0'
-    'https://game-recs.herokuapp.com/',
+    'game-recs.herokuapp.com',
     '127.0.0.1'
 ]
 
