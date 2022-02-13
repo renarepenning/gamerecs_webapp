@@ -11,28 +11,39 @@
   <!-- custom styling -->
   <style>
     .container-fluid {
-      height: fit-content;
+      height: 100%;
       background-color: #e3f2fd;
-      grid-template-rows: 1fr;
-      grid-template-columns: 50px, 1fr;
+      columns: 2;
+      
     }
     .body{
       background-color: #e3f2fd;
     }
-    
     .top{
       margin: 0 auto;
       background-color: #25521E;
       padding: 3px;
     }
-    .col-sm-1{
+    .col-sm-1 {
       background-color: #306665;
-      padding: 3px;
-      color: white;
+      color: blue;
       text-align: center;
-      width: 100;
+      padding: 5px;
       height: 100%;
-      float: left;
+      width: 10%;
+      float: none;
+      
+      
+    }
+    .col-sm-10{
+      background-color: #e3f2fd;
+      color: black;
+      text-align: left;
+      padding: 10px;
+      height: 100%;
+      width: 90%;
+      float: none;
+      position: fixed;
     }
     .bk{
       background-color: #412999;
@@ -79,10 +90,12 @@
         <p>side bar here . . .. . . . ... . .</p>
         {% endblock %}
       </div>
+      
       <div class="col-sm-10">
         {% block content %}{% endblock %}
       </div>
     </div>
+    
   </div>
 
 
