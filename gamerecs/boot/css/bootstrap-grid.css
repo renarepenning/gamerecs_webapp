@@ -14,6 +14,24 @@ html {
 *::after {
   box-sizing: inherit;
 }
+/* This is a single-line comment 
+.title {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f79d81;
+  padding: 10px;
+  color: #fafafa;
+}
+.navbar-brand {
+  color: #fafafa;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1349c;
+}
+ This is a single-line comment */
+
 
 .container {
   width: 100%;
@@ -311,6 +329,7 @@ html {
     -ms-flex: 0 0 8.333333%;
     flex: 0 0 8.333333%;
     max-width: 8.333333%;
+    height: 100%;
   }
   .col-sm-2 {
     -ms-flex: 0 0 16.666667%;

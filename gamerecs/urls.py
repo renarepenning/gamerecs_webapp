@@ -1,28 +1,3 @@
-from django.urls import path, include
-
-from django.contrib import admin
-
-admin.autodiscover()
-
-import recommender.views
-
-# To add a new path, first import the app:
-# import blog
-#
-# Then add the new path:
-# path('blog/', blog.urls, name="blog")
-#
-# Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
-
-# from the example coild be important
-#urlpatterns = [
-    #path("", recommender.views.index, name="index"),
-    #path("db/", recommender.views.db, name="db"),
-    #path("admin/", admin.site.urls),
-#]
-
-
-
 """gamerecs URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -49,4 +24,3 @@ urlpatterns = [
 
     path('recommender/', include('recommender.urls')), # sends urls with user prefix to user file
 ]
-
