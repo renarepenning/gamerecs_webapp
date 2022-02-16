@@ -1,52 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   {% block title %}
-  <title class="title" style="border: 5px"></title>
+  <title style="border: 5px"></title>
     {% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <!-- custom styling -->
+  <!-- custom styling
+  https://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
   <style>
-    .container-fluid {
-      height: 100%;
+    .wrapper {
       background-color: #e3f2fd;
-      columns: 2;
-      
+      display: flex;  
+      flex-flow: row wrap;
+    }
+    .wrapper > * {
+      padding: 10px;
+      flex: 1 100%;
     }
     .body{
       background-color: #e3f2fd;
     }
-    .top{
+    .header{
       margin: 0 auto;
       background-color: #25521E;
-      padding: 3px;
+      padding: 2px;
     }
-    .col-sm-1 {
+    .main {
+    text-align: left;
+    }
+    .title {
+      font-weight: bold;
+      padding: 5px;
+    }
+    .login {
+      padding: 20px;
+      max-width: 400px;
+    }
+    /*
+    .aside-1 {
       background-color: #306665;
-      color: blue;
+      color: white;
       text-align: center;
       padding: 5px;
-      height: 100%;
-      width: 10%;
-      float: none;
-      
-      
+      width: 10px;
     }
-    .col-sm-10{
-      background-color: #e3f2fd;
-      color: black;
-      text-align: left;
-      padding: 10px;
-      height: 100%;
-      width: 90%;
-      float: none;
-      position: fixed;
+    */
+    /*
+
+
+    /* Medium screens *//* We tell both sidebars to share a row */
+    @media all and (min-width: 600px) {
+      .aside { flex: 1 0 0; }
     }
-    .bk{
-      background-color: #412999;
+    /* Large screens */
+    @media all and (min-width: 800px) {
+      /* We invert order of first sidebar and main. And tell the main element to take twice as much width as the other two sidebars */
+      .main    { flex: 3 0px; }
+      .aside-1 { order: 1; } 
+      .main    { order: 2; }
+      .footer  { order: 3; }
+    }
+    body {
+      padding: 2px; 
     }
 
   </style> 
@@ -58,8 +75,8 @@
   <link rel="stylesheet" href="{% static 'css/custom.css' %}"> -->
 </head>
 
-<body>
-  <div class="top">
+<body class="wrapper">
+  <header class="header">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #306665;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -80,38 +97,29 @@
         </form>
       </div>
     </nav>
-  </div>
+  </header>
 
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-1">
-        {% block sidebar %}
-        <p>side bar here . . .. . . . ... . .</p>
-        {% endblock %}
-      </div>
-      
-      <div class="col-sm-10">
+  <div class="main">
         {% block content %}{% endblock %}
-      </div>
+  </div>
+
+  <!--- <aside class="aside aside-1">
+    {% block sidebar %}
+    <h3>side bar here . . .. . . . ... . .</h3>
+    {% endblock %}
+  </aside> --->
+
+
+  <footer class="text-center text-white fixed-bottom" style="background-color: #306665;">
+    <!-- Grid container -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <a class="text-white" href="">Tulane Computer Science Capstone Project 2022</a>
     </div>
-    
-  </div>
-
-
-  <div>
-    <footer class="text-center text-white fixed-bottom" style="background-color: #306665;">
-      <!-- Grid container -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        <a class="text-white" href="">Tulane Computer Science Capstone Project 2022</a>
-      </div>
-    </footer>
-  </div>
-
+  </footer>
   <!-- 
   <script src="js/jquery-1.10.2.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script> -->
-
   <!-- from tutorial -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
