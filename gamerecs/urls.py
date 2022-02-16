@@ -18,9 +18,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
 
-    path('', views.home, name="front-page"), # path for home page
+    path('', views.home, name="front-page"),  # path for home page
 
-    path('recommender/', include('recommender.urls')), # sends urls with user prefix to user file
+    # sends urls with user prefix to user file
+    path('recommender/', include('recommender.urls')),
 ]
