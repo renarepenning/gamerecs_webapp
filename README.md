@@ -14,3 +14,7 @@ Beta app created with Django and deployed on Heroku
 3. Please include good commit messages 
 4. Pull request to merge into deploy
 5. Heroku will automatically deploy when you successfully merge into the `deploy` branch
+
+### Branch inheritance as follows
+deploy <-- production <-- personal branches
+* Merge personal branches into deploy after recieving one peer review. We will merge into Deploy, as a team, periodically.
