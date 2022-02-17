@@ -25,3 +25,10 @@ class UserForm(forms.ModelForm):
             'tags',
             'platforms'
         ]
+
+    def clean_userName(self):
+        # validate the field - can make one for any field
+        data = self.cleaned_data.get('userName')
+        if len(data) < 4:
+            raise forms.ValidationError("Username is not long enough")
+        return data
