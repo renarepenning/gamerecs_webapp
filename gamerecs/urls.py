@@ -20,7 +20,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.home, name="front-page"), # path for home page
+    path('', views.home, name="front-page"),  # path for home page
 
-    path('recommender/', include('recommender.urls')), # sends urls with user prefix to user file
+    # sends urls with user prefix to user file
+    path('recommender/', include('recommender.urls')),
 ]
