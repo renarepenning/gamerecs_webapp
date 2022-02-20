@@ -18,3 +18,4 @@ Beta app created with Django and deployed on Heroku
 ### Branch inheritance as follows
 deploy <-- production <-- personal branches
 * Merge personal branches into deploy after recieving one peer review. We will merge into Deploy, as a team, periodically.
+
