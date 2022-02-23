@@ -4,6 +4,6 @@ from . import views
 # url conf module
 urlpatterns = [
     # send /user to index
-    path('', views.rec_home, name='rec_home'),
-    path('add/', views.add_user, name='add_user')
+    # path('', views.rec_home, name='rec_home'),
+    path('add/', views.add_entry, name='add_entry')
 ]

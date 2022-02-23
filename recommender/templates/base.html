@@ -40,6 +40,12 @@
       padding: 20px;
       max-width: 400px;
     }
+    #side {
+      background-color: #306665;
+      max-width: 100px;
+      border-width: 10px;
+      border-color: aqua;
+    }
 
     /* Medium screens *//* We tell both sidebars to share a row */
     @media all and (min-width: 600px) {
@@ -78,11 +84,9 @@
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">Home <span class="sr-only">(current)</span></a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'rec_home' %}" style="color:#e3f2fd" >Recommender</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_user' %}" style="color:#e3f2fd" >Add User</a>
+            <a class="nav-link" href="{% url 'add_entry' %}" style="color:#e3f2fd" >Add</a>
           </li>
 
         </ul>
@@ -97,11 +101,15 @@
         {% block content %}{% endblock %}
   </div>
 
-  <!--- <aside class="aside aside-1">
+  <aside class="aside aside-1" id="side">
     {% block sidebar %}
-    <h3>side bar here . . .. . . . ... . .</h3>
+
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'register' %}">Sign up</a>
+
     {% endblock %}
-  </aside> --->
+  </aside>
 
 
   <footer class="text-center text-white fixed-bottom" style="background-color: #306665;">

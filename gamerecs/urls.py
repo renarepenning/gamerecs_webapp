@@ -17,11 +17,21 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+from accounts.views import(
+    register_view,
+    login_view,
+    logout_view
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.home, name="front-page"),  # path for home page
-
     # sends urls with user prefix to user file
     path('recommender/', include('recommender.urls')),
+
+    # path('accounts/', include('accounts.urls')),
+    path('login/', login_view, name="login"),
+    path('register/', register_view, name="register"),
+    path('logout/', logout_view, name="logout"),
 ]

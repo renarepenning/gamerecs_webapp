@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import User
+from .models import Entry
 
 
-class UserForm(forms.ModelForm):
-    # userName = forms.CharField(max_length=20)
+class EntryForm(forms.ModelForm):
+    # userName = 
     # age = forms.CharField(max_length=3)
     # genre = forms.CharField(max_length=20)
     # keyword = forms.CharField(max_length=20)
@@ -14,7 +14,7 @@ class UserForm(forms.ModelForm):
     # platforms = forms.CharField(max_length=20) ## can use these to override
 
     class Meta:
-        model = User
+        model = Entry
         fields = [
             'userName',
             'age',
@@ -26,9 +26,3 @@ class UserForm(forms.ModelForm):
             'platforms'
         ]
 
-    def clean_userName(self):
-        # validate the field - can make one for any field
-        data = self.cleaned_data.get('userName')
-        if len(data) < 4:
-            raise forms.ValidationError("Username is not long enough")
-        return data
