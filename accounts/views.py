@@ -37,7 +37,7 @@ def login_view(request):
             # user is valid and active -> is_active
             # request.user == user
             login(request, user)
-            return redirect("/") 
+            return redirect("/recommender/add/") 
         else:
             # attempt = request.session.get("attempt") or 0
             # request.session['attempt'] += 1 # simple way to monitor attempts, but only on same session
@@ -48,4 +48,4 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     # request.user == Anon User
-    return redirect("/login")
+    return redirect("/")
