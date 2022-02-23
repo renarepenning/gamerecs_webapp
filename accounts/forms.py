@@ -17,6 +17,7 @@ class RegisterForm(forms.Form):
             }
         )
     )
+    """THESE DO NOT YET CHECK FOR MATCHS. PWORD WILL BE FIRST ONE"""
     password2 = forms.CharField(
         label="Confirm Password",
         widget=forms.PasswordInput(

@@ -23,7 +23,7 @@ def register_view(request):
             return redirect("/") 
         else:
             request.session['registration_error'] = 1
-    return render(request, "forms.html", {"form": form})
+    return render(request, "signup.html", {"form": form})
 
 ## auth user into project
 def login_view(request):
@@ -37,7 +37,7 @@ def login_view(request):
             # user is valid and active -> is_active
             # request.user == user
             login(request, user)
-            return redirect("/recommender/add/") 
+            return redirect("/add/") 
         else:
             # attempt = request.session.get("attempt") or 0
             # request.session['attempt'] += 1 # simple way to monitor attempts, but only on same session

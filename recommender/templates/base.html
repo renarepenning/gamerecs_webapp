@@ -12,8 +12,14 @@
   <!-- custom styling
   https://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
   <style>
+    :root {
+      --tulane_green: #306665;;
+      --borders: #255250;
+      --background: #e3f2fd;
+      --buttongreen: #4f8b8a;
+    }
     .wrapper {
-      background-color: #e3f2fd;
+      background-color: var(--background);
       display: flex;  
       flex-flow: row wrap;
     }
@@ -22,15 +28,17 @@
       flex: 1 100%;
     }
     .body{
-      background-color: #e3f2fd;
+      background-color: var(--background);
     }
     .header{
       margin: 0 auto;
-      background-color: #25521E;
+      background-color: var(--tulane_green);
       padding: 2px;
+      font-weight: bold;
     }
     .main {
     text-align: left;
+    padding: 20px;
     }
     .title {
       font-weight: bold;
@@ -41,8 +49,19 @@
       max-width: 400px;
     }
     #side {
-      background-color: #306665;
-      max-width: 100px;
+      background-color: var(--tulane_green);
+      max-width: 120px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .nav-link {
+      border: 2px solid var(--borders);
+      border-radius: 5px;
+      background-color: var(--buttongreen);
+      padding: 8px;
+      margin: 8px;
+      max-width: 200px;
+      color: var(--background);
     }
 
     /* Medium screens *//* We tell both sidebars to share a row */
@@ -93,9 +112,8 @@
       </div>
     </nav>
   </header>
-  <div class="main">
-        {% block content %}{% endblock %}
-  </div>
+
+
 
   <aside class="aside aside-1" id="side">
     {% block sidebar %}
@@ -104,6 +122,18 @@
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'register' %}">Sign up</a>
     {% endblock %}
   </aside>
+
+  <div class="main">
+    <div class="media" id="projinfo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Tulane_logo.svg" class="mr-3" alt="Tulane logo">
+      <div class="media-body">
+        <h5 class="title">Capstone Project Goal</h5>
+        Recommendation systems are a popular and profitable application of machine learning across many forms of media.  There are no available, user-centric recommendation algorithms that draw data from multiple sources. By creating a video game recommendation system we hope to help users discover games they would not have otherwise. Modern recommenders rely on corporate advertising motivations or private user data. The creation and obtainment of video games require more time and financial investment than other media such as film, music, etc. Twitch’s Internet Games Database is a comprehensive dataset and API, similar in function to the IMDB. We aim to use this data to leverage user opinions on popular games to recommend indie games.
+      </div>
+    </div>
+    {% block content %}{% endblock %}
+  </div>
+
 
 
   <footer class="text-center text-white fixed-bottom" style="background-color: #306665;">
