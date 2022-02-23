@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
+<h1 class="title">Sign up</h1>
+<p></p>
+<form method='POST' action=".">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button> 
+</form>
+{% endblock %}

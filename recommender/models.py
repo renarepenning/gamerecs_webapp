@@ -1,10 +1,12 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
+User = settings.AUTH_USER_MODEL
 
-class User(models.Model):
-    userName = models.CharField(max_length=20)
+class Entry(models.Model):
+    userName = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     age = models.CharField(max_length=3)
     genre = models.CharField(max_length=20)
     keyword = models.CharField(max_length=20)

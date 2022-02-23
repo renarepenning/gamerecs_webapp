@@ -12,8 +12,14 @@
   <!-- custom styling
   https://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
   <style>
+    :root {
+      --tulane_green: #306665;;
+      --borders: #255250;
+      --background: #e3f2fd;
+      --buttongreen: #4f8b8a;
+    }
     .wrapper {
-      background-color: #e3f2fd;
+      background-color: var(--background);
       display: flex;  
       flex-flow: row wrap;
     }
@@ -22,15 +28,19 @@
       flex: 1 100%;
     }
     .body{
-      background-color: #e3f2fd;
+      background-color: var(--background);
     }
     .header{
       margin: 0 auto;
-      background-color: #25521E;
-      padding: 2px;
+      background-color: var(--tulane_green);
+      font-weight: bold;
+      padding: 3px;
     }
+
     .main {
     text-align: left;
+    padding: 30px;
+    margin-bottom: 50px;
     }
     .title {
       font-weight: bold;
@@ -39,6 +49,21 @@
     .login {
       padding: 20px;
       max-width: 400px;
+    }
+    #side {
+      background-color: var(--tulane_green);
+      max-width: 120px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .nav-link {
+      border: 2px solid var(--borders);
+      border-radius: 5px;
+      background-color: var(--buttongreen);
+      padding: 8px;
+      margin: 8px;
+      max-width: 200px;
+      color: var(--background);
     }
 
     /* Medium screens *//* We tell both sidebars to share a row */
@@ -79,12 +104,8 @@
             <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'rec_home' %}" style="color:#e3f2fd" >Recommender</a>
+            <a class="nav-link" href="{% url 'add_entry' %}" style="color:#e3f2fd" >Add</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_user' %}" style="color:#e3f2fd" >Add User</a>
-          </li>
-
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -93,15 +114,28 @@
       </div>
     </nav>
   </header>
+
+
+
+  <aside class="aside aside-1" id="side">
+    {% block sidebar %}
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'register' %}">Sign up</a>
+    {% endblock %}
+  </aside>
+
   <div class="main">
-        {% block content %}{% endblock %}
+    <div class="media" id="projinfo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Tulane_logo.svg" class="mr-3" alt="Tulane logo">
+      <div class="media-body">
+        <h5 class="title">Capstone Project Goal</h5>
+        Recommendation systems are a popular and profitable application of machine learning across many forms of media.  There are no available, user-centric recommendation algorithms that draw data from multiple sources. By creating a video game recommendation system we hope to help users discover games they would not have otherwise. Modern recommenders rely on corporate advertising motivations or private user data. The creation and obtainment of video games require more time and financial investment than other media such as film, music, etc. Twitch’s Internet Games Database is a comprehensive dataset and API, similar in function to the IMDB. We aim to use this data to leverage user opinions on popular games to recommend indie games.
+      </div>
+    </div>
+    {% block content %}{% endblock %}
   </div>
 
-  <!--- <aside class="aside aside-1">
-    {% block sidebar %}
-    <h3>side bar here . . .. . . . ... . .</h3>
-    {% endblock %}
-  </aside> --->
 
 
   <footer class="text-center text-white fixed-bottom" style="background-color: #306665;">
@@ -110,9 +144,6 @@
       <a class="text-white" href="">Tulane Computer Science Capstone Project 2022</a>
     </div>
   </footer>
-  <!-- 
-  <script src="js/jquery-1.10.2.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script> -->
   <!-- from tutorial -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -122,21 +153,4 @@
 </html>
 
 <!--- Understand the Code:
--- https://data-flair.training/blogs/django-static-files-handling/ --
-In this code, you must be noticing that we used some new template tags. 
-The tag,  block body_block  is used for template inheritance. 
-We are actually replacing this section of code between  block body_block  …. endblock . 
-The name body_block can be of your choice.
-There can be multiple blocks of this type. It’s up to you to change them or use them as it is.
-
-OTHERS TEMPLATE:
-
-% extends "base.html" %
-% block body_block %
-    <h2> search for / </h2>
-    <h1>{{ context.k1 }}</h1>
-% endblock %
-
-* TOOK OUT { BC IT SAW ERRORS
-
--->
+-- https://data-flair.training/blogs/django-static-files-handling/ -->
