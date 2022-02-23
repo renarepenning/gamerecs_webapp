@@ -22,16 +22,21 @@ from accounts.views import(
     login_view,
     logout_view
 )
+from recommender.views import (
+    add_entry
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.home, name="front-page"),  # path for home page
     # sends urls with user prefix to user file
-    path('recommender/', include('recommender.urls')),
 
     # path('accounts/', include('accounts.urls')),
     path('login/', login_view, name="login"),
     path('register/', register_view, name="register"),
     path('logout/', logout_view, name="logout"),
+
+    # path('recommender/', include('recommender.urls')),
+    path('add/', add_entry, name='add_entry')
 ]
