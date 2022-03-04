@@ -2,4 +2,4 @@ django
 gunicorn
 django-heroku
 requests
-psycopg2==2.8.6
+psycopg2==2.8.5

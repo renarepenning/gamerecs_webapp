@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'gamerecs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd8sbqfan0c1jo0',
         'HOST': 'ec2-50-19-32-96.compute-1.amazonaws.com',
         'PORT' : 5432,
