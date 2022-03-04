@@ -8,6 +8,11 @@ from django.contrib import messages
 from .forms import EntryForm
 from .models import Entry
 
+
+from django.contrib.auth import authenticate, login, logout, get_user_model
+User = get_user_model()
+
+
 '''from .models import xyz'''
 # request handler!
 
@@ -31,6 +36,6 @@ def add_entry(request, *args, **kwargs):
 
 @login_required
 def user_view(request):
-    entries = Entry.objects.all().filter(pub_date__year=2006)
+    entries = Entry.objects.all().filter(userName=User.username)
     ## what to put here
     return render(request, "user.html", entries)
