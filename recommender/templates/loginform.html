@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "projinfo.html" %}
+
+<div id="body">
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
 <h1 class="title">Login</h1>
 <p><em>User must be logged in to add data entries.</em></p>
@@ -8,4 +11,5 @@
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
+</div>
 {% endblock %}

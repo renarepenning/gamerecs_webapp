@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "showuser.html" %}
+
+<p>display entries here.....</p>
+<div>
+    {{request.entries}}
+</div>
+{% endblock %}

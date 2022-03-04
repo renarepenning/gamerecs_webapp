@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "projinfo.html" %}
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
+<div id="body">
 <h1 class="title">Sign up</h1>
 <p></p>
 <form method='POST' action=".">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
+</div>
 {% endblock %}

@@ -28,3 +28,9 @@ def add_entry(request, *args, **kwargs):
         # return HttpResponseRedirect("/success") # two options for redirecting after form submission
         # return redirect("/success")
     return render(request, "forms.html", {"form": form})
+
+@login_required
+def user_view(request):
+    entries = Entry.objects.all().filter(pub_date__year=2006)
+    ## what to put here
+    return render(request, "user.html", entries)

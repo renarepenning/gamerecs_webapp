@@ -39,12 +39,12 @@
 
     .main {
     text-align: left;
-    padding: 30px;
+    padding: 2px;
     margin-bottom: 50px;
     }
     .title {
       font-weight: bold;
-      padding: 5px;
+      padding: 25px;
     }
     .login {
       padding: 20px;
@@ -82,6 +82,10 @@
       padding: 2px; 
     }
 
+    #body {
+      padding: 30px;
+    }
+
   </style> 
   <!-- Add additional CSS in static file -->
   {% load static %}
@@ -101,16 +105,12 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">About<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_entry' %}" style="color:#e3f2fd" >Add</a>
+            <a class="nav-link" href="{% url 'register' %}" style="color:#e3f2fd" >Sign up</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
   </header>
@@ -121,18 +121,12 @@
     {% block sidebar %}
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
-      <a class="nav-link" style="color:#e3f2fd" href="{% url 'register' %}">Sign up</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'user-home' %}">User Home</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'add_entry' %}">Add Entry</a>
     {% endblock %}
   </aside>
 
   <div class="main">
-    <div class="media" id="projinfo">
-      <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Tulane_logo.svg" class="mr-3" alt="Tulane logo">
-      <div class="media-body">
-        <h5 class="title">Capstone Project Goal</h5>
-        Recommendation systems are a popular and profitable application of machine learning across many forms of media.  There are no available, user-centric recommendation algorithms that draw data from multiple sources. By creating a video game recommendation system we hope to help users discover games they would not have otherwise. Modern recommenders rely on corporate advertising motivations or private user data. The creation and obtainment of video games require more time and financial investment than other media such as film, music, etc. Twitch’s Internet Games Database is a comprehensive dataset and API, similar in function to the IMDB. We aim to use this data to leverage user opinions on popular games to recommend indie games.
-      </div>
-    </div>
     {% block content %}{% endblock %}
   </div>
 

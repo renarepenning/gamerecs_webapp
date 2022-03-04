@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include "showuser.html" %}
+
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
 <h1 class="title">Form Draft</h1>
-<form method='POST' action=".">{% csrf_token %}
+<form method='POST' action="." id="body">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
