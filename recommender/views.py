@@ -36,6 +36,10 @@ def add_entry(request, *args, **kwargs):
 
 @login_required
 def user_view(request):
-    entries = Entry.objects.all().filter(userName=User.username)
-    ## what to put here
-    return render(request, "user.html", entries)
+    # https://www.youtube.com/watch?v=VxOsCKMStuw
+    userid = request.user.pk # gives primary key
+    entries = Entry.objects.all().filter(userName_id=userid)
+    args = {'user': request.user, 'entries': entries}
+    return render(request, "user.html", args)
+
+

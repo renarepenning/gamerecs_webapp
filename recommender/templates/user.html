@@ -3,9 +3,22 @@
 {% block content %}
 
 {% include "showuser.html" %}
+<style>
+    #user-out {
+      background-color: whitesmoke;
+      max-width: 30%;
+      margin: 30px;
+    }
 
-<p>display entries here.....</p>
-<div>
-    {{request.entries}}
-</div>
+</style>
+<h3>Your entries</h1>
+    {% for e in entries %}
+    <div id="user-out">
+        <h5> {{ e }}</h1>
+        <p>{{ e.age }}</p>
+        <p>{{ e.genre }}</p>
+        <p>{{ e.keyword }}</p>
+        <p> add more fields later </p>
+    </div>
+    {% endfor %}
 {% endblock %}

@@ -16,15 +16,15 @@ import psycopg2
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+"""BASE_DIR = Path(__file__).resolve().parent.parent
+"""
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# old# SECRET_KEY = 'django-insecure-qyue=0afswnau(#_rg(i96=*8cw$jgw=&(m5ut^n18h3f)y2-a'
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-qyue=0afswnau(#_rg(i96=*8cw$jgw=&(m5ut^n18h3f)y2-a'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -152,7 +152,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+"""
 
 ## https://devcenter.heroku.com/articles/connecting-heroku-postgres#connecting-in-python
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -161,7 +161,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 import dj_database_url
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
+"""
 #stack
 """if 'DATABASE_URL' in os.environ:
     DATABASES = {
