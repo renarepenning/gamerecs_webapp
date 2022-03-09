@@ -6,7 +6,7 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 class Entry(models.Model):
-    userName = models.ForeignKey(User, null=True, on_delete=models.CASCADE) #any user maps here
+    user = models.ForeignKey(to=User, blank=True, null=True, on_delete=models.CASCADE) #any user maps here
     age = models.CharField(max_length=3)
     genre = models.CharField(max_length=20)
     keyword = models.CharField(max_length=20)

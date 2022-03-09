@@ -28,6 +28,7 @@ def add_entry(request, *args, **kwargs):
     form = EntryForm(request.POST or None)
     if form.is_valid():
         obj = form.save(commit=False)
+        obj.user = request.user
         obj.save()
         form = EntryForm()  # returned cleaned form
         # return HttpResponseRedirect("/success") # two options for redirecting after form submission
@@ -38,7 +39,7 @@ def add_entry(request, *args, **kwargs):
 def user_view(request):
     # https://www.youtube.com/watch?v=VxOsCKMStuw
     userid = request.user.pk # gives primary key
-    entries = Entry.objects.all().filter(userName_id=userid)
+    entries = Entry.objects.all().filter(user_id=userid)
     args = {'user': request.user, 'entries': entries}
     return render(request, "user.html", args)
 

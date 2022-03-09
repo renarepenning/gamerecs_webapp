@@ -4,7 +4,7 @@ from .models import Entry
 
 
 class EntryForm(forms.ModelForm):
-    # userName = 
+    # user = 
     # age = forms.CharField(max_length=3)
     # genre = forms.CharField(max_length=20)
     # keyword = forms.CharField(max_length=20)
@@ -16,7 +16,7 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = [
-            'userName',
+            'user',
             'age',
             'genre',
             'keyword',
