@@ -57,6 +57,12 @@
       text-align: center;
       font-weight: bold;
     }
+    #username {
+        text-align: center;
+        color: azure;
+        font-size: x-large;
+        padding-top: 5px;
+      }
     .nav-link {
       border: 2px solid var(--borders);
       border-radius: 5px;
@@ -113,6 +119,9 @@
           </li>
         </ul>
       </div>
+
+      <p id="username"><em>{{request.user.username}} </em><p>
+
     </nav>
   </header>
 
