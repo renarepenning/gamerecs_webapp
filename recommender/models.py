@@ -6,7 +6,7 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 class Entry(models.Model):
-    userName = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    userName = models.ForeignKey(User, null=True, on_delete=models.CASCADE) #any user maps here
     age = models.CharField(max_length=3)
     genre = models.CharField(max_length=20)
     keyword = models.CharField(max_length=20)
@@ -14,3 +14,6 @@ class Entry(models.Model):
     game_modes = models.CharField(max_length=20)
     tags = models.CharField(max_length=20)
     platforms = models.CharField(max_length=20)
+
+    """def __str__(self):
+        return self.userName"""

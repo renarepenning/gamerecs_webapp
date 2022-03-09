@@ -8,6 +8,11 @@ from django.contrib import messages
 from .forms import EntryForm
 from .models import Entry
 
+
+from django.contrib.auth import authenticate, login, logout, get_user_model
+User = get_user_model()
+
+
 '''from .models import xyz'''
 # request handler!
 
@@ -28,3 +33,13 @@ def add_entry(request, *args, **kwargs):
         # return HttpResponseRedirect("/success") # two options for redirecting after form submission
         # return redirect("/success")
     return render(request, "forms.html", {"form": form})
+
+@login_required
+def user_view(request):
+    # https://www.youtube.com/watch?v=VxOsCKMStuw
+    userid = request.user.pk # gives primary key
+    entries = Entry.objects.all().filter(userName_id=userid)
+    args = {'user': request.user, 'entries': entries}
+    return render(request, "user.html", args)
+
+

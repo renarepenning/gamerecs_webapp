@@ -20,7 +20,7 @@ def register_view(request):
             user != None
         if user != None:
             login(request, user)
-            return redirect("/") 
+            return redirect("/user-home/") 
         else:
             request.session['registration_error'] = 1
     return render(request, "signup.html", {"form": form})
@@ -37,7 +37,7 @@ def login_view(request):
             # user is valid and active -> is_active
             # request.user == user
             login(request, user)
-            return redirect("/add/") 
+            return redirect("/user-home/") 
         else:
             # attempt = request.session.get("attempt") or 0
             # request.session['attempt'] += 1 # simple way to monitor attempts, but only on same session

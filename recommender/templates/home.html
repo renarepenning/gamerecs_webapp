@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1></h1>
+{% include "projinfo.html" %}
 
   
 </br></br>
-  
+<div id="body">
   <h3 class="title">About the project</h3>
   <p>Authors: Rena Repenning, Kelly Romer, Emily O'Connell, Matt Rau, and Vaughn Bangash. Faculty mentor: Dr Anastasia Kurdia</p>
   <p>Website built using Django, Heroku, and Bootstrap. Data scraped from IGDB, Reddit, and Wikipedia.</p>
@@ -16,5 +16,6 @@
   <a class="nav-link" href="https://github.com/renarepenning/VideoGameRecommender">Algorithm Code Repo</a>
   <a class="nav-link" href="https://github.com/renarepenning/gamerecs_webapp">Web App Repo</a>
 
-
+</div>
 {% endblock %}
+
