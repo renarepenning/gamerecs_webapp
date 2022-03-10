@@ -8,6 +8,8 @@ from django.contrib import messages
 from .forms import EntryForm, RecForm
 from .models import Entry, Rec
 
+from .code import myFxn
+
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
 User = get_user_model()                         
@@ -29,8 +31,17 @@ def user_view(request):
     # https://www.youtube.com/watch?v=VxOsCKMStuw
     userid = request.user.pk # gives primary key
     entries = Entry.objects.all().filter(user_id=userid)
-    recs = Rec.objects.all().filter(user_id=userid)
-    args = {'user': request.user, 'entries': entries, 'recs': recs}
+    inputs = Rec.objects.all().filter(user_id=userid)
+
+    """ not editing the db just rendering this """
+    for r in inputs:
+        if r.rec == "":
+            print("Calling code.py to add rec for ", r.games)
+            r.rec = myFxn(r.games)
+        else:
+            print("rec entry present")
+
+    args = {'user': request.user, 'entries': entries, 'recs': inputs}
     return render(request, "user.html", args)
 
 @login_required
