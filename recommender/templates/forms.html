@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    #output {
+        background-color: white;
+        min-width: 10px;
+    }
+</style>
 
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
 <h1 class="title">{{ title }}</h1>
@@ -8,5 +14,9 @@
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
+
+{% if rec != "" %}
+<h2>We recommend {{rec}}!</h2>
+{% endif %}
 
 {% endblock %}
