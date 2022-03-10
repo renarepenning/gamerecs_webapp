@@ -24,7 +24,8 @@ from accounts.views import(
 )
 from recommender.views import (
     add_entry,
-    user_view
+    user_view,
+    get_rec
 )
 
 urlpatterns = [
@@ -38,7 +39,7 @@ urlpatterns = [
     path('register/', register_view, name="register"),
     path('logout/', logout_view, name="logout"),
     path('user-home/', user_view, name='user-home'),
-
-    # path('recommender/', include('recommender.urls')),
     path('add/', add_entry, name='add_entry')
+
+    , path('recommender/', get_rec, name="get-rec")
 ]

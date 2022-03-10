@@ -63,6 +63,10 @@
         font-size: x-large;
         padding-top: 5px;
       }
+    #warning {
+      color: red;
+      text-align: center;
+    }
     .nav-link {
       border: 2px solid var(--borders);
       border-radius: 5px;
@@ -132,11 +136,16 @@
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'user-home' %}">User Home</a>
-      <a class="nav-link" style="color:#e3f2fd" href="{% url 'add_entry' %}">Add Entry</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'add_entry' %}">Add User Profile</a>
+      <a class="nav-link" style="color:#e3f2fd" href="{% url 'get-rec' %}">Get Rec</a>
     {% endblock %}
   </aside>
 
   <div class="main">
+    <div id="warning">
+      <em>Site in progress</em>
+      <p>Current limitations include: - recs instantiated as null </p>
+    </div>
     {% block content %}{% endblock %}
   </div>
 
