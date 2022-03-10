@@ -66,6 +66,9 @@
     #warning {
       color: red;
       text-align: center;
+      font-size: large;
+      font-weight: bold;
+      padding: 20px;
     }
     .nav-link {
       border: 2px solid var(--borders);
@@ -123,9 +126,7 @@
           </li>
         </ul>
       </div>
-
       <p id="username"><em>{{request.user.username}} </em><p>
-
     </nav>
   </header>
 
@@ -143,8 +144,8 @@
 
   <div class="main">
     <div id="warning">
-      <em>Site in progress</em>
-      <p>Current limitations include: - recs instantiated as null </p>
+      <em> Please take our <a href="https://forms.gle/jJhL1sBsRdgt7uca7">survey</a> after testing!!</em>
+      <p>We would appreciate if you could screenshot any issues and upload them to the survey :)</p>
     </div>
     {% block content %}{% endblock %}
   </div>

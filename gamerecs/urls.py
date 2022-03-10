@@ -40,6 +40,7 @@ urlpatterns = [
     path('logout/', logout_view, name="logout"),
     path('user-home/', user_view, name='user-home'),
     path('add/', add_entry, name='add_entry')
-
     , path('recommender/', get_rec, name="get-rec")
+
+    , path('milestone6/', views.ms6, name="ms6")
 ]

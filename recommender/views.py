@@ -24,7 +24,7 @@ def add_entry(request, *args, **kwargs):
         obj.save()
         form = EntryForm()  # returned cleaned form
         return redirect("/user-home")
-    return render(request, "forms.html", {"title":"tester form", "form": form})
+    return render(request, "forms.html", {"title":"tester form", "form": form, "rec":""})
 
 @login_required
 def user_view(request):
@@ -38,15 +38,17 @@ def user_view(request):
 @login_required
 def get_rec(request, *args, **kwargs):
     form = RecForm(request.POST or None)
+    rec = ""
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         ## CALL FUNCTION ON THE GAME THAT WAS INPUT
         obj.rec = myFxn(obj.games)
+        rec = obj.rec
         ##
         obj.save()
         form = RecForm()  # returned cleaned form
-        return redirect("/user-home")
-    return render(request, "forms.html", {"title":"Get Rec", "form": form})
+        #return redirect("/user-home")
+    return render(request, "forms.html", {"title":"Get a recommendation", "form": form, "rec": rec})
 
 
