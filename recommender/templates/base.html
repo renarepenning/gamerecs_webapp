@@ -66,6 +66,9 @@
     #warning {
       color: red;
       text-align: center;
+      font-size: large;
+      font-weight: bold;
+      padding: 20px;
     }
     .nav-link {
       border: 2px solid var(--borders);
@@ -123,9 +126,7 @@
           </li>
         </ul>
       </div>
-
       <p id="username"><em>{{request.user.username}} </em><p>
-
     </nav>
   </header>
 
@@ -143,8 +144,7 @@
 
   <div class="main">
     <div id="warning">
-      <em>Site in progress</em>
-      <a href="https://forms.gle/jJhL1sBsRdgt7uca7">Please take our survey after testing</a>
+      <em> Please take our <a href="https://forms.gle/jJhL1sBsRdgt7uca7">survey</a> after testing!!</em>
     </div>
     {% block content %}{% endblock %}
   </div>
