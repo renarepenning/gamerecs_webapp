@@ -3,20 +3,21 @@
 {% block content %}
 <style>
     #output {
-        background-color: white;
-        min-width: 10px;
+        font-size: x-large;
+        color: var(--tulane_green);
+        padding: 30px;
     }
 </style>
 
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
-<h1 class="title">{{ title }}</h1>
+<h3 class="title">{{ title }}</h3>
 <form method='POST' action="." id="body">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
 
 {% if rec != "" %}
-<h2>We recommend {{rec}}!</h2>
+<p id="output">We recommend {{rec}}!</p>
 {% endif %}
 
 {% endblock %}
