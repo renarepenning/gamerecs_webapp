@@ -15,8 +15,6 @@ class Entry(models.Model):
     tags = models.CharField(max_length=20)
     platforms = models.CharField(max_length=20)
 
-    """def __str__(self):
-        return self.userName"""
 class Rec(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #any user maps here
     games = models.CharField(max_length=20)

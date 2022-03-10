@@ -8,6 +8,7 @@ from django.contrib import messages
 from .forms import EntryForm, RecForm
 from .models import Entry, Rec
 
+"""TEST INPUT FILE W FUNCTION"""
 from .code import myFxn
 
 
@@ -22,8 +23,7 @@ def add_entry(request, *args, **kwargs):
         obj.user = request.user
         obj.save()
         form = EntryForm()  # returned cleaned form
-        # return HttpResponseRedirect("/success") # two options for redirecting after form submission
-        # return redirect("/success")
+        return redirect("/user-home")
     return render(request, "forms.html", {"title":"tester form", "form": form})
 
 @login_required
@@ -32,15 +32,6 @@ def user_view(request):
     userid = request.user.pk # gives primary key
     entries = Entry.objects.all().filter(user_id=userid)
     inputs = Rec.objects.all().filter(user_id=userid)
-
-    """ not editing the db just rendering this """
-    for r in inputs:
-        if r.rec == "":
-            print("Calling code.py to add rec for ", r.games)
-            r.rec = myFxn(r.games)
-        else:
-            print("rec entry present")
-
     args = {'user': request.user, 'entries': entries, 'recs': inputs}
     return render(request, "user.html", args)
 
@@ -50,10 +41,12 @@ def get_rec(request, *args, **kwargs):
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
+        ## CALL FUNCTION ON THE GAME THAT WAS INPUT
+        obj.rec = myFxn(obj.games)
+        ##
         obj.save()
         form = RecForm()  # returned cleaned form
-        # return HttpResponseRedirect("/success") # two options for redirecting after form submission
-        # return redirect("/success")
+        return redirect("/user-home")
     return render(request, "forms.html", {"title":"Get Rec", "form": form})
 
 
