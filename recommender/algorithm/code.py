@@ -3,7 +3,11 @@ import numpy as np
 import os
 import threading
 import time
+"""https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
+
+""" MATT'S CODE AS OF 3/11 """
+#df = pd.read_csv('C:/Users/Trader00/Downloads/IGDB_games.csv').set_index('id')
 df = pd.read_csv('recommender/algorithm/IGDB_games.csv').set_index('id')
 test = df.iloc[5005]
 
@@ -44,7 +48,7 @@ def get_input(game):
     try:
         return df[df['name'] == game].iloc[0]
     except:
-        print('FUCK YOU')
+        print('ERROR - get input')
 
    
 def transform(columns, test, df=df):
@@ -79,7 +83,7 @@ def save_file(game, columns:list, df:pd.DataFrame=df):
     try:
         row = get_input(game)
     except:
-        print(game, 'fucking sucks')
+        print(game, ' -- ERROR - get input')
    
 
     df = transform(columns, row)
@@ -96,7 +100,7 @@ def multiple_games(games:list, df=df, columns:list=['genres', 'themes', 'game_mo
         os.rmdir(SAVE_DIR)
     """
     if not os.path.exists(SAVE_DIR):
-        print("FUCK")
+        print("ERRor - path")
         os.mkdir(SAVE_DIR)
     threads = list()
    
@@ -184,7 +188,6 @@ def build_ul(df=df):
 
 """multiple_games(games=['Spy Snatcher', 'Mirage', 'Boom Brothers', 'Minecraft Starter Collection',
                       'Siesta Fiesta'])
-
 print(transform(master_cols, get_input('Out of the Park Baseball 12')))"""
 
 def cleanOutput(output):
@@ -193,8 +196,5 @@ def cleanOutput(output):
 def getRec(game):
     print("call GET REC")
     rec = transform(master_cols, get_input(game))
-    print("OUTPUT RETURNING ", rec)
-    """ # testing
-    with open('readme.txt', 'w') as f:
-        f.write(rec)"""
+    print("OUTPUT RETURNING\n ", rec, "\n")
     return cleanOutput(rec)
