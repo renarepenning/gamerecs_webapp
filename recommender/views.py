@@ -50,5 +50,3 @@ def get_rec(request, *args, **kwargs):
         form = RecForm()  # returned cleaned form
         #return redirect("/user-home")
     return render(request, "forms.html", {"title":"Get a recommendation", "form": form, "rec": rec})
-
-
