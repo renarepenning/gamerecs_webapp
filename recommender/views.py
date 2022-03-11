@@ -9,7 +9,7 @@ from .forms import EntryForm, RecForm
 from .models import Entry, Rec
 
 """TEST INPUT FILE W FUNCTION"""
-from .code import myFxn
+from ..algorithm.code import myFxn
 
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
