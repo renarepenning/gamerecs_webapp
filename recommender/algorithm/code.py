@@ -9,7 +9,7 @@ import time
 """ MATT'S CODE AS OF 3/11 """
 #df = pd.read_csv('C:/Users/Trader00/Downloads/IGDB_games.csv').set_index('id')
 df = pd.read_csv('recommender/algorithm/small_IGDB_games.csv').set_index('id')
-test = df.iloc[5005]
+test = df.iloc[2500]
 
 master_cols = ['genres', 'themes', 'game_modes','tags', 'platforms', 'keywords']
 
