@@ -7,7 +7,7 @@ User = get_user_model() #import user model
 
 class RegisterForm(forms.Form):
     username = forms.CharField()
-    """email = forms.EmailField(required=False)"""
+    email = forms.EmailField()
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
@@ -36,12 +36,23 @@ class RegisterForm(forms.Form):
         return username
 
     """def clean_email(self): """
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        qs = User.objects.filter(email__iexact=email)
+        if qs.exists():
+            raise forms.ValidationError("This email is already in use.")
+        return email
 
     
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
+    username = forms.CharField(
+        widget=forms.TextInput(
+        attrs={
+        "class": "form-control"
+    })
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
@@ -61,4 +72,6 @@ class LoginForm(forms.Form):
         qs = User.objects.filter(username__iexact=username)
         if not qs.exists():
             raise forms.ValidationError("This is an invalid user")
+        if qs.count() != 1:
+            raise forms.ValidationError("This is an invalid user.")
         return username
