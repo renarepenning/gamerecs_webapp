@@ -9,7 +9,7 @@ from .forms import EntryForm, RecForm
 from .models import Entry, Rec
 
 """TEST INPUT FILE W FUNCTION"""
-from .code import myFxn
+from .algorithm.code import getRec
 
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -24,7 +24,7 @@ def add_entry(request, *args, **kwargs):
         obj.save()
         form = EntryForm()  # returned cleaned form
         return redirect("/user-home")
-    return render(request, "forms.html", {"title":"tester form", "form": form, "rec":""})
+    return render(request, "entryform.html", {"title":"tester form", "form": form})
 
 @login_required
 def user_view(request):
@@ -43,12 +43,12 @@ def get_rec(request, *args, **kwargs):
         obj = form.save(commit=False)
         obj.user = request.user
         ## CALL FUNCTION ON THE GAME THAT WAS INPUT
-        obj.rec = myFxn(obj.games)
+        obj.rec = getRec(obj.games)
         rec = obj.rec
         ##
         obj.save()
         form = RecForm()  # returned cleaned form
         #return redirect("/user-home")
-    return render(request, "forms.html", {"title":"Get a recommendation", "form": form, "rec": rec})
+    return render(request, "recform.html", {"title":"Get a recommendation", "form": form, "rec": rec})
 
 

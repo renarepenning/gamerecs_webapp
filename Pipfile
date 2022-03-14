@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 gunicorn = "*"
+pandas = "*"
+numpy = "*"
 
 [dev-packages]
 
