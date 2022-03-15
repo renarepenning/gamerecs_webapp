@@ -8,7 +8,7 @@ django = "*"
 gunicorn = "*"
 pandas = "*"
 numpy = "*"
-psycopg2 =" *"
+psycopg2 = "*"
 
 [dev-packages]
 
