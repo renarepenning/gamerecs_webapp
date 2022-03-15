@@ -75,8 +75,8 @@
 <p>Please allow us up to 30 seconds for the algorithm to run</p>
 
 <form method='POST' action="." id="body" autocomplete="off"><div class="autocomplete" style="width:300px;">{% csrf_token %}
-    {{ form.as_p }}
-    <input id="myInput" type="text" name="myGame" placeholder="Enter Game">
+    
+    <input id="myInput" type="text" name="games" placeholder="Enter Game">
     <button type="submit">Submit</button>
   </div>
 </form>
