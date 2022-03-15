@@ -196,5 +196,12 @@ def build_ul(df=df):
 
 
 #get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
+
+def formatOutput(recs):
+    outputStr = "\n\n"
+    for i in range(1, len(recs)):
+        outputStr += str(i) + ". " + recs[i] + "\n\n"
+    return outputStr
+
 def getRec(game):
-    return get_game(game)
+    return formatOutput(get_game(game))
