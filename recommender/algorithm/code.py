@@ -6,16 +6,26 @@ import time
 import data
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
-df = data.df.drop_duplicates()
+# Upload path to csv file containing games
+PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
+try:
+    df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
+
+except:
+    df = pd.read_csv(PATH_TO_FILE)
+
 test = df.iloc[5005]
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
 
+
 def conjunction(lst1, lst2):
     return list(set(lst1) & set(lst2))
 
+
 def disjunction(lst1, lst2):
     return list(set(set(lst1) | set(lst2)))
+
 
 def clean(array):
     try:
@@ -23,6 +33,7 @@ def clean(array):
     except:
         print(array)
     return list(map(lambda x: int(x), array))
+
 
 def transform_column(target, column, df=df):
     start = time.time()
@@ -42,6 +53,7 @@ def transform_column(target, column, df=df):
 
     return score
 
+
 def get_input(game):
     try:
         return df[df['name'] == game].iloc[0]
@@ -49,7 +61,7 @@ def get_input(game):
         print('FUCK YOU')
 
 
-def transform( test, columns=master_cols, df=df):
+def transform(test, columns=master_cols, df=df):
     df = df.set_index("name")
     df['name'] = df.index
 
@@ -68,11 +80,10 @@ def transform( test, columns=master_cols, df=df):
             master = master.join(ser)
             out_cols.append(col)
         except:
-            #print("FUCK YOU", col)
+            # print("FUCK YOU", col)
             pass
     print(test.loc['name'], out_cols)
     master = master[out_cols]
-    master.to_csv("/small_IGDB_games.csv")
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
     print('Transform Time', end)
@@ -80,7 +91,7 @@ def transform( test, columns=master_cols, df=df):
     return master.sort_values('Total')
 
 
-def get_game(game:str or list, num=10):
+def get_game(game: str or list, num=10):
     if type(game) == str:
         test = get_input(game)
         df = transform(test)
@@ -88,6 +99,8 @@ def get_game(game:str or list, num=10):
     else:
         df = multiple_games(game)
         return df.head(num).index.tolist()
+
+
 def save_file(game, columns: list, df: pd.DataFrame = df):
     if not os.path.exists("Saver"):
         os.mkdir('Saver')
@@ -130,12 +143,10 @@ def multiple_games(games: list, df=df,
         thread.join()
 
     for game in games:
-
-        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv',index_col=0)['Total'])
+        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv', index_col=0)['Total'])
         pdf[game] = pdf['Total']
 
         master = master.join(pdf[[game]])
-
 
         print(master.columns, 'kjljlkhk')
     master['Total'] = master.sum(axis=1)
@@ -164,18 +175,6 @@ def preprocess(df: pd.DataFrame, columns=master_cols):
     print('Start to Finish', end, 'Seconds')
     print('Average Time per sample', end / len(df), 'Seconds')
 
-
-# out = save_file('Out of the Park Baseball 12', master_cols)
-
-# print(out)
-
-
-# preprocess(df.iloc[125:130])
-# save_file()
-# print(get_input('Out of the Park Baseball 12'))
-
-# print(transform(master_cols, get_input('Out of the Park Baseball 12')))
-
 # Pandas DataFrame of IGDB games
 def build_ul(df=df):
     front = '''<li><a href="#">'''
@@ -195,21 +194,7 @@ def build_ul(df=df):
         print('</ul>')
         f.close()
 
-get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
 
-"""multiple_games(games=['Spy Snatcher', 'Mirage', 'Boom Brothers', 'Minecraft Starter Collection',
-                      'Siesta Fiesta'])
-print(transform(master_cols, get_input('Out of the Park Baseball 12')))"""
-
-"""
-def cleanOutput(output):
-    return output.iloc[:-2, 0][0:6] # series
-
-def getRec(game):
-    print("call GET REC")
-    rec = transform(master_cols, get_input(game))
-    print("OUTPUT RETURNING\n ", rec, "\n")
-    return cleanOutput(rec)
-"""
+#get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
 def getRec(game):
     return get_game(game)
