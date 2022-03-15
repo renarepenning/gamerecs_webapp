@@ -3,7 +3,7 @@ import numpy as np
 import os
 import threading
 import time
-import data
+
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
 # Upload path to csv file containing games
