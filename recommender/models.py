@@ -17,6 +17,6 @@ class Entry(models.Model):
 
 class Rec(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #any user maps here
-    games = models.CharField(max_length=20)
+    games = models.CharField(max_length=100)
     rec = models.TextField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
