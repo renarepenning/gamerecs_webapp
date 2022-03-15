@@ -3,22 +3,29 @@ import numpy as np
 import os
 import threading
 import time
+
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
+# Upload path to csv file containing games
+PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
+try:
+    df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
 
-""" MATT'S CODE AS OF 3/11 """
+except:
+    df = pd.read_csv(PATH_TO_FILE)
 
-#df = pd.read_csv('recommender/algorithm/small_IGDB_games.csv').set_index('id')
-df = pd.read_csv('recommender/algorithm/small_IGDB_games.csv').set_index('id')
-test = df.iloc[2500]
+test = df.iloc[5]
 
-master_cols = ['genres', 'themes', 'game_modes','tags', 'platforms', 'keywords']
+master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
+
 
 def conjunction(lst1, lst2):
     return list(set(lst1) & set(lst2))
 
+
 def disjunction(lst1, lst2):
     return list(set(set(lst1) | set(lst2)))
+
 
 def clean(array):
     try:
@@ -26,6 +33,7 @@ def clean(array):
     except:
         print(array)
     return list(map(lambda x: int(x), array))
+
 
 def transform_column(target, column, df=df):
     start = time.time()
@@ -45,55 +53,72 @@ def transform_column(target, column, df=df):
 
     return score
 
+
 def get_input(game):
     try:
         return df[df['name'] == game].iloc[0]
     except:
-        print('ERROR - get input')
+        print('FUCK YOU')
 
-   
-def transform(columns, test, df=df):
+
+def transform(test, columns=master_cols, df=df):
     df = df.set_index("name")
     df['name'] = df.index
-    
+
     master = pd.DataFrame(columns=df.index.tolist(),
-                          index=df.index.tolist())    
+                          index=df.index.tolist())
     out_columns = ['name']
     df['Columns Counted'] = 0
     start = time.time()
+    df['Total'] = 0
+    master = df[['Total']]
+    out_cols = list()
     for col in columns:
-        col_name = col + ' score'
-        out_columns.append(col_name)
-        df[col_name] = 0
-        try:
-            ser = transform_column(test, col, df=df)
-            df[col_name] = ser
 
+        try:
+            ser = pd.DataFrame(transform_column(test, col, df=df))
+            master = master.join(ser)
+            out_cols.append(col)
         except:
+            # print("FUCK YOU", col)
             pass
-    col_map = list(map(lambda x: x + ' score', columns))
-    df['Total'] = df[col_map].sum(axis=1)
+    print(test.loc['name'], out_cols)
+    master = master[out_cols]
+    master['Total'] = master.sum(axis=1)
     end = time.time() - start
     print('Transform Time', end)
-    return df[out_columns + ['Total']]
+    master = master.drop(test.loc['name'])
+    return master.sort_values('Total')
 
-def save_file(game, columns:list, df:pd.DataFrame=df):
+
+def get_game(game: str or list, num=10):
+    if type(game) == str:
+        test = get_input(game)
+        df = transform(test)
+        return df.sort_values('Total', ascending=False).head(num).index.tolist()
+    else:
+        df = multiple_games(game)
+        return df.head(num).index.tolist()
+
+
+def save_file(game, columns: list, df: pd.DataFrame = df):
     if not os.path.exists("Saver"):
         os.mkdir('Saver')
-    
+
     try:
         row = get_input(game)
+        df = transform(row)
+        df.to_csv(f'Saver/{game}.csv')
+
+
     except:
-        print(game, ' -- ERROR - get input')
-   
-
-    df = transform(columns, row)
-    df.to_csv(f'Saver/{game}.csv')
+        print(game, 'fucking sucks')
 
 
-
-def multiple_games(games:list, df=df, columns:list=['genres', 'themes', 'game_modes','tags', 'platforms', 'keywords']):
-    #print(df.name.tolist())
+def multiple_games(games: list, df=df,
+                   columns: list = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords'],
+                   num=10):
+    # print(df.name.tolist())
     SAVE_DIR = 'Saver'
     """if os.path.exists(SAVE_DIR):
         for file in os.listdir(SAVE_DIR):
@@ -101,35 +126,34 @@ def multiple_games(games:list, df=df, columns:list=['genres', 'themes', 'game_mo
         os.rmdir(SAVE_DIR)
     """
     if not os.path.exists(SAVE_DIR):
-        print("ERRor - path")
+        print("FUCK")
         os.mkdir(SAVE_DIR)
     threads = list()
-   
+    master = pd.DataFrame(index=df['name'], columns=['Total'])
+    master['Total'] = 0
     for game in games:
         print(game)
-        #save_file(game, columns, df)
-        
+        # save_file(game, columns, df)
+
         x = threading.Thread(target=save_file, args=(game, columns, df,))
         threads.append(x)
         x.start()
-        
+
     for thread in threads:
         thread.join()
-    if len(games) == 1:
-        master = pd.read_csv(f'Saver/{games[0]}.csv')['Total']
-    else:
-        master = pd.read_csv(f'Saver/{games[0]}.csv')['Total']
-        
-    for game in games[1:]:
-        print(pd.read_csv(f'Saver/{game}.csv')['Total'].sort_values())
-        print(f'Saver/{game}.csv')
-        master = master + pd.read_csv(f'Saver/{game}.csv')['Total']
 
-    print(master.sort_values())
-    return master
+    for game in games:
+        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv', index_col=0)['Total'])
+        pdf[game] = pdf['Total']
+
+        master = master.join(pdf[[game]])
+
+        print(master.columns, 'kjljlkhk')
+    master['Total'] = master.sum(axis=1)
+    return master[['Total']].sort_values('Total', ascending=False)
 
 
-def preprocess(df:pd.DataFrame, columns=master_cols):
+def preprocess(df: pd.DataFrame, columns=master_cols):
     df = df.set_index("name")
     df = df[columns]
     df['name'] = df.index
@@ -137,33 +161,19 @@ def preprocess(df:pd.DataFrame, columns=master_cols):
                           index=df.index.tolist())
     start = time.time()
     threads = list()
-    
-    
+
     for game in df.index:
         x = threading.Thread(target=save_file, args=(game, columns))
         threads.append(x)
         x.start()
         print(game)
-        #save_file(game, columns)
+        # save_file(game, columns)
     for thread in threads:
         thread.join()
-    
+
     end = time.time() - start
     print('Start to Finish', end, 'Seconds')
-    print('Average Time per sample', end/len(df), 'Seconds')
-    
-    
-    
-#out = save_file('Out of the Park Baseball 12', master_cols)
-
-#print(out)
-
-
-#preprocess(df.iloc[125:130])
-#save_file()
-#print(get_input('Out of the Park Baseball 12'))
-
-#print(transform(master_cols, get_input('Out of the Park Baseball 12')))
+    print('Average Time per sample', end / len(df), 'Seconds')
 
 # Pandas DataFrame of IGDB games
 def build_ul(df=df):
@@ -179,23 +189,19 @@ def build_ul(df=df):
                 f.write(line)
             except:
                 pass
-            
+
         f.write('</ul>')
         print('</ul>')
         f.close()
-        
-        
-#build_ul(df)
 
-"""multiple_games(games=['Spy Snatcher', 'Mirage', 'Boom Brothers', 'Minecraft Starter Collection',
-                      'Siesta Fiesta'])
-print(transform(master_cols, get_input('Out of the Park Baseball 12')))"""
 
-def cleanOutput(output):
-    return output.iloc[:-2, 0][0:6] # series
+#get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
+
+def formatOutput(recs):
+    outputStr = "\n\n"
+    for i in range(1, len(recs)):
+        outputStr += str(i) + ". " + recs[i] + "\n\n"
+    return outputStr
 
 def getRec(game):
-    print("call GET REC")
-    rec = transform(master_cols, get_input(game))
-    print("OUTPUT RETURNING\n ", rec, "\n")
-    return cleanOutput(rec)
+    return formatOutput(get_game(game))
