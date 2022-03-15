@@ -14,7 +14,7 @@ try:
 except:
     df = pd.read_csv(PATH_TO_FILE)
 
-test = df.iloc[5005]
+test = df.iloc[5]
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
 
