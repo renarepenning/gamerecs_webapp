@@ -21,8 +21,7 @@
     <h1>Your Preference Profiles</h1>
     {% for e in entries %}
     <div id="user-out">
-        <p>{{ e.age }}, {{ e.genre }}, {{ e.keyword }},
-        ... add more fields later </p>
+        <p>{{ e.age }}, {{ e.genre }}, {{ e.keyword }}, {{ e.theme }}, {{ e.game_modes}}, {{ e.tags }}, {{ e.platforms }} </p>
     </div>
     {% endfor %}
 {% endblock %}
