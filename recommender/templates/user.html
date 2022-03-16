@@ -8,11 +8,21 @@
       max-width: 50%;
       margin: 30px;
     }
+    #user-recs {
+      border: 5px solid black;
+      text-align: center;
+      color: white;
+      background-color: #306665;
+      max-width: 50%;
+      margin: 30px;
+    }
+    
+
 
 </style>
-    <h1>Your Recommendations</h1>
     {% for r in recs %}
-    <div id="user-out">
+    <div id="user-recs">
+        <h1>Your Recommendations</h1>
         <p><em>Game: {{ r.games }}</em> -- (entered on {{r.timestamp}})</p>
         <p>Recommended Games: {{r.rec|linebreaksbr }}</p>
     </div>
