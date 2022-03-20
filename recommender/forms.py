@@ -23,3 +23,8 @@ class RecForm(forms.ModelForm):
         fields = [
             'games'
         ]
+#class DisplayForm(forms.ModelForm):
+    #class Meta:
+        #model = DisplayModel
+        #field = ['games']
+

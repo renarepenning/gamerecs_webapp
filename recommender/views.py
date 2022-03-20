@@ -26,9 +26,13 @@ def add_entry(request, *args, **kwargs):
         return redirect("/user-home")
     return render(request, "entryform.html", {"title":"tester form", "form": form})
 
+
+
 @login_required
 def user_view(request):
     # https://www.youtube.com/watch?v=VxOsCKMStuw
+    #model = Display
+    #form_class = DisplayForm
     userid = request.user.pk # gives primary key
     entries = Entry.objects.all().filter(user_id=userid)
     inputs = Rec.objects.all().filter(user_id=userid)
