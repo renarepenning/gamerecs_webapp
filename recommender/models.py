@@ -21,3 +21,4 @@ class Rec(models.Model):
     games = models.CharField(max_length=100)
     rec = models.TextField(blank=True)
     timestamp = models.DateField(default=date.today, null=True)
+    rating = models.IntegerField(null=True)

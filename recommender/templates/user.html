@@ -9,12 +9,41 @@
       margin: 30px;
     }
 
+    input {
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+
 </style>
     <h1>Your Recommendations</h1>
     {% for r in recs %}
     <div id="user-out">
         <p><em>Game: {{ r.games }}</em> -- (entered on {{r.timestamp}})</p>
         <p>Recommended Games: {{r.rec|linebreaksbr }}</p>
+
+        <div class="container" id="rating-input">
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <p>Please rate this suggestion</p>
+            <input id="myInput" type="text" name="rating" placeholder="Integer 1-5">
+            <button type="submit" class="btn btn-primary" name="button">Rate recommendation</button>
+        </form>
+
+        </div>
+        <p>Your rating: {{ r.rating }}</p>
     </div>
     {% endfor %}
     <br>
