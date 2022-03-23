@@ -38,15 +38,17 @@ def user_view(request):
 @login_required
 def get_rec(request, *args, **kwargs):
     form = RecForm(request.POST or None)
-    rec = ""
+    rec, games, rating = "", "", ""
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         ## CALL FUNCTION ON THE GAME THAT WAS INPUT
         obj.rec = getRec(obj.games)
         rec = obj.rec
+        rating = obj.rating
+        games = obj.games
         ##
         obj.save()
         form = RecForm()  # returned cleaned form
         #return redirect("/user-home")
-    return render(request, "recform.html", {"title":"Get a recommendation", "form": form, "rec": rec})
+    return render(request, "recform.html", {"title":"Get a recommendation", "form": form, "rec": rec, "rating":rating, "games":games})

@@ -33,18 +33,21 @@
     <div id="user-out">
         <p><em>Game: {{ r.games }}</em> -- (entered on {{r.timestamp}})</p>
         <p>Recommended Games: {{r.rec|linebreaksbr }}</p>
-
-        <div class="container" id="rating-input">
+        <p >Your rating: {{ r.rating }}</p>
+    </div>
+    <!-- <div id="rate">
+      <div class="container" id="rating-input">
         <form method="POST" action=".">
             {% csrf_token %}
+            {{ form.rating }}
             <p>Please rate this suggestion</p>
             <input id="myInput" type="text" name="rating" placeholder="Integer 1-5">
             <button type="submit" class="btn btn-primary" name="button">Rate recommendation</button>
         </form>
+        <p>Rating:</p 
 
-        </div>
-        <p>Your rating: {{ r.rating }}</p>
-    </div>
+      </div>
+    </div> -->
     {% endfor %}
     <br>
     <h1>Your Preference Profiles</h1>

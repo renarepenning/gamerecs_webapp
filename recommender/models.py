@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from datetime import date
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -21,4 +22,9 @@ class Rec(models.Model):
     games = models.CharField(max_length=100)
     rec = models.TextField(blank=True)
     timestamp = models.DateField(default=date.today, null=True)
-    rating = models.IntegerField(null=True)
+    rating = models.IntegerField(default=0,
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(0),
+        ]
+    )

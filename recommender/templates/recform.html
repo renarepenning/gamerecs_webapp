@@ -81,7 +81,24 @@
 </form>
 
 <!-- WILL NEED TO MAKE SEPERATE FORM FOR ENTRY -- OR TAKE THAT AWAY -->
-<p id="output">We recommend the following games: {{rec|linebreaksbr}}</p>
+
+<div id="output">
+  <p>We recommend the following games: {{rec|linebreaksbr}}</p>
+</div>
+
+
+  <form method="POST" action=".">
+    {% csrf_token %}
+    <p>Please rate this suggestion</p>
+    <input id="myInput" type="text" name="rating" placeholder="Integer 1-5">
+    <button type="submit" name="button">Rate recommendation</button>
+    
+  </form>
+  
+
+  <div id="output">
+    <p>Rating for {{games}}: {{rating}}</p>
+  </div>
 
 <script>
 function autocomplete(inp, arr) {
