@@ -1,0 +1,228 @@
+:root {
+    --tulane_green: #306665;;
+    --borders: #255250;
+    --background: #e3f2fd;
+    --buttongreen: #4f8b8a;
+  }
+  .wrapper {
+    background-color: var(--background);
+    display: flex;  
+    flex-flow: row wrap;
+  }
+  .wrapper > * {
+    padding: 10px;
+    flex: 1 100%;
+  }
+  .body{
+    background-color: var(--background);
+    padding: 0px;
+  }
+  .header{
+    margin: 0 auto;
+    background-color: var(--tulane_green);
+    font-weight: bold;
+    padding: 3px;
+  }
+
+  .main {
+  text-align: left;
+  padding: 20px;
+  margin-bottom: 50px;
+  }
+  .title {
+    font-weight: bold;
+    padding: 5px;
+  }
+  .login {
+    padding: 20px;
+    max-width: 400px;
+  }
+  h1 {
+    padding: 25px;
+  }
+  #side {
+    background-color: var(--tulane_green);
+    max-width: 120px;
+    text-align: center;
+    font-weight: bold;
+  }
+  #username {
+      text-align: center;
+      color: azure;
+      font-size: x-large;
+      padding-top: 5px;
+    }
+  #warning {
+    color: red;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    padding: 20px;
+  }
+  .nav-link {
+    border: 2px solid var(--borders);
+    border-radius: 5px;
+    background-color: var(--buttongreen);
+    padding: 8px;
+    margin: 8px;
+    max-width: 200px;
+    color: var(--background);
+  }
+
+  /* Medium screens *//* We tell both sidebars to share a row */
+  @media all and (min-width: 600px) {
+    .aside { flex: 1 0 0; }
+  }
+  /* Large screens */
+  @media all and (min-width: 800px) {
+    /* We invert order of first sidebar and main. And tell the main element to take twice as much width as the other two sidebars */
+    .main    { flex: 3 0px; }
+    .aside-1 { order: 1; } 
+    .main    { order: 2; }
+    .footer  { order: 3; }
+  }
+  body {
+    padding: 2px; 
+    font: 16px Arial;
+  }
+
+  #body {
+    padding: 30px;
+  }
+
+  #output {
+        font-size: small;
+        color: var(--tulane_green);
+        padding: 10px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  /*the container must be positioned relative:*/
+  .autocomplete {
+    position: relative;
+    display: inline-block;
+  }
+
+  input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+
+  /*when hovering an item:*/
+  .autocomplete-items div:hover {
+    background-color: #e9e9e9;
+  }
+
+  /*when navigating through the items using the arrow keys:*/
+  .autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+
+  /* REC FORM */
+
+  #output {
+      font-size: medium !important;
+      color: var(--tulane_green);
+      padding: 30px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  /*the container must be positioned relative:*/
+  .autocomplete {
+    position: relative;
+    display: inline-block;
+  }
+
+  input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+
+  /*when hovering an item:*/
+  .autocomplete-items div:hover {
+    background-color: #e9e9e9;
+  }
+
+  /*when navigating through the items using the arrow keys:*/
+  .autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+
+  .checked {
+    color: var(--tulane_green);
+  }
+  
+  .my-btn {
+      background-color: inherit !important;
+      border: 0 !important;
+  }

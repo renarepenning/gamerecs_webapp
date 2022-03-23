@@ -28,3 +28,4 @@ class Rec(models.Model):
             MinValueValidator(0),
         ]
     )
+    """0 ==> None"""

@@ -25,7 +25,8 @@ from accounts.views import(
 from recommender.views import (
     add_entry,
     user_view,
-    get_rec
+    get_rec,
+    rate
 )
 
 urlpatterns = [
@@ -41,6 +42,7 @@ urlpatterns = [
     path('user-home/', user_view, name='user-home'),
     path('add/', add_entry, name='add_entry')
     , path('recommender/', get_rec, name="get-rec")
+    , path("rate/", rate)
 
     , path('milestone6/', views.ms6, name="ms6")
 ]
