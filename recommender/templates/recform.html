@@ -1,87 +1,44 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<style>
-    #output {
-        font-size: x-large;
-        color: var(--tulane_green);
-        padding: 30px;
-    }
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font: 16px Arial;
-    }
-
-    /*the container must be positioned relative:*/
-    .autocomplete {
-      position: relative;
-      display: inline-block;
-    }
-
-    input {
-      border: 1px solid transparent;
-      background-color: #f1f1f1;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    input[type=text] {
-      background-color: #f1f1f1;
-      width: 100%;
-    }
-
-    input[type=submit] {
-      background-color: DodgerBlue;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .autocomplete-items {
-      position: absolute;
-      border: 1px solid #d4d4d4;
-      border-bottom: none;
-      border-top: none;
-      z-index: 99;
-      /*position the autocomplete items to be the same width as the container:*/
-      top: 100%;
-      left: 0;
-      right: 0;
-    }
-
-    .autocomplete-items div {
-      padding: 10px;
-      cursor: pointer;
-      background-color: #fff;
-      border-bottom: 1px solid #d4d4d4;
-    }
-
-    /*when hovering an item:*/
-    .autocomplete-items div:hover {
-      background-color: #e9e9e9;
-    }
-
-    /*when navigating through the items using the arrow keys:*/
-    .autocomplete-active {
-      background-color: DodgerBlue !important;
-      color: #ffffff;
-    }
-</style>
 
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
-<h3 class="title">{{ title }}</h3>
+  <h3>Get a recommendation</h3>
 
-<form method='POST' action="." id="body" autocomplete="off"><div class="autocomplete" style="width:300px;">{% csrf_token %}
+<div class="row">
+  <div class="column">
+    <form method='POST' action="." id="body" autocomplete="off">
+      <div class="autocomplete" style="width:300px;">{% csrf_token %}
+        <input id="myInput" type="text" name="games" placeholder="Enter Game">
+        <br>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <!-- p>{{ obj }}</p -->
+    <p>Please rate suggestion</p>
+      <form class="rate-form" action="" method="POST" id="{{obj.id}}">
+        {% csrf_token %}
+        <button type="submit" class="fa fa-star fa-2x my-btn" id="first"></button>
+        <button type="submit" class="fa fa-star fa-2x my-btn" id="second"></button>
+        <button type="submit" class="fa fa-star fa-2x my-btn" id="third"></button>
+        <button type="submit" class="fa fa-star fa-2x my-btn" id="fourth"></button>
+        <button type="submit" class="fa fa-star fa-2x my-btn" id="fifth"></button>
+      </form>
+      <br>
+      <div id="confirm-box"></div>
     
-    <input id="myInput" type="text" name="games" placeholder="Enter Game">
-    <button type="submit">Submit</button>
   </div>
-</form>
+  <div class="column">
+      
+    <div id="output">
+      <p>We recommend the following games for {{obj.games}} fans: {{obj.rec|linebreaksbr}}</p>
+    </div>
+    <!-- POSS GET RID OF DUPE RECS-->
+    
 
-<!-- WILL NEED TO MAKE SEPERATE FORM FOR ENTRY -- OR TAKE THAT AWAY -->
-<p id="output">We recommend the following games: {{rec|linebreaksbr}}</p>
+  </div>
+</div>
 
 <script>
 function autocomplete(inp, arr) {

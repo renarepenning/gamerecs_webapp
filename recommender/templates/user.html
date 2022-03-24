@@ -9,12 +9,35 @@
       margin: 30px;
     }
 
+    input {
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type=text] {
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+
+    input[type=submit] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+    #rating {
+      color: green;
+      text-align: center;
+    }
+
 </style>
     <h1>Your Recommendations</h1>
     {% for r in recs %}
     <div id="user-out">
         <p><em>Game: {{ r.games }}</em> -- (entered on {{r.timestamp}})</p>
         <p>Recommended Games: {{r.rec|linebreaksbr }}</p>
+        <p id="rating">Your rating: {{ r.rating }}</p>
     </div>
     {% endfor %}
     <br>

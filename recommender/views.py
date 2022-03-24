@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.contrib import messages
+from django.template import RequestContext
 
 from .forms import EntryForm, RecForm
 from .models import Entry, Rec
@@ -38,15 +39,33 @@ def user_view(request):
 @login_required
 def get_rec(request, *args, **kwargs):
     form = RecForm(request.POST or None)
-    rec = ""
+    obj = None
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         ## CALL FUNCTION ON THE GAME THAT WAS INPUT
         obj.rec = getRec(obj.games)
-        rec = obj.rec
         ##
         obj.save()
         form = RecForm()  # returned cleaned form
         #return redirect("/user-home")
-    return render(request, "recform.html", {"title":"Get a recommendation", "form": form, "rec": rec})
+    return render(request, "recform.html", {"form": form, "obj":obj})# "rec": obj.rec, "obj":obj})
+
+# @transaction.commit_manually
+def rate(request):
+    if request.method == 'POST':
+        el_id = request.POST.get('el_id')
+        val = request.POST.get('val')
+        obj = Rec.objects.get(id=el_id)
+        obj.rating = int(val)
+
+
+        obj.save()
+        # print("rec saved correctly! ==> ", obj, " ", obj.rating)
+
+
+        # https://stackoverflow.com/questions/50782502/django-save-method-not-saving
+        return JsonResponse({'success':'true', 'rating': obj.rating}, safe=False)
+    return JsonResponse({'success':'false'})
+    """ select * from recommender_rec where recommender_rec.id=85; """
+
