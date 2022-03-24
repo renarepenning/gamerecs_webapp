@@ -107,7 +107,7 @@ if (one) {
                 },
                 success: function(response){
                     console.log(response)
-                    confirmBox.innerHTML = `<p>Your rating: ${response.score}</p>`
+                    confirmBox.innerHTML = `<p>Your rating: ${response.rating}</p>`
                 },
                 error: function(error){
                     console.log(error)

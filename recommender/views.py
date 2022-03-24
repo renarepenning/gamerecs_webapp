@@ -51,15 +51,21 @@ def get_rec(request, *args, **kwargs):
         #return redirect("/user-home")
     return render(request, "recform.html", {"form": form, "obj":obj})# "rec": obj.rec, "obj":obj})
 
+# @transaction.commit_manually
 def rate(request):
     if request.method == 'POST':
         el_id = request.POST.get('el_id')
-        # print("el_id", el_id)
         val = request.POST.get('val')
-        # print("VALUE", val)
         obj = Rec.objects.get(id=el_id)
-        obj.score = val
+        obj.rating = int(val)
+
+
         obj.save()
-        print("obj", obj, "  score ", obj.score)
-        return JsonResponse({'success':'true', 'score': val}, safe=False)
+        # print("rec saved correctly! ==> ", obj, " ", obj.rating)
+
+
+        # https://stackoverflow.com/questions/50782502/django-save-method-not-saving
+        return JsonResponse({'success':'true', 'rating': obj.rating}, safe=False)
     return JsonResponse({'success':'false'})
+    """ select * from recommender_rec where recommender_rec.id=85; """
+

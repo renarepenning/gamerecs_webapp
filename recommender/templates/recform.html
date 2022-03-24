@@ -16,12 +16,7 @@
       </div>
     </form>
     <!-- p>{{ obj }}</p -->
-    <div id="output">
-      <p>We recommend the following games for {{obj.games}} fans: {{obj.rec|linebreaksbr}}</p>
-    </div>
-  </div>
-  <div class="column">
-      <p>Please rate suggestion</p>
+    <p>Please rate suggestion</p>
       <form class="rate-form" action="" method="POST" id="{{obj.id}}">
         {% csrf_token %}
         <button type="submit" class="fa fa-star fa-2x my-btn" id="first"></button>
@@ -33,9 +28,14 @@
       <br>
       <div id="confirm-box"></div>
     
-    <div>
-      <p>Rating for {{obj.games}}: {{obj.rating}}</p>
-    </div> 
+  </div>
+  <div class="column">
+      
+    <div id="output">
+      <p>We recommend the following games for {{obj.games}} fans: {{obj.rec|linebreaksbr}}</p>
+    </div>
+    <!-- POSS GET RID OF DUPE RECS-->
+    
 
   </div>
 </div>
