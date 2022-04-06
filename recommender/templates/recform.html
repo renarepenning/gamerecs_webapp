@@ -2,9 +2,24 @@
 {% load static %}
 
 {% block content %}
+<style>
+  #user-out {
+    background-color: #f5fbff;
+    max-width: 50%;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 30px;
+  }
+  #title {
+    font-size: large;
+    color: #255250;
+    padding: 15px;
+    margin: 15px;
+  }
+</style>
 
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
-  <h3>Get a recommendation</h3>
+<h3>Get a recommendation</h3>
 
 <div class="row">
   <div class="column">
@@ -16,8 +31,8 @@
       </div>
     </form>
     <!-- p>{{ obj }}</p -->
-    <p>Please rate suggestion</p>
-      <form class="rate-form" action="" method="POST" id="{{obj.id}}">
+    <p id="title">Please rate suggestion</p>
+      <form class="rate-form" action="" method="POST" id="{{obj.id}}" style="padding-left: 20px;">
         {% csrf_token %}
         <button type="submit" class="fa fa-star fa-2x my-btn" id="first"></button>
         <button type="submit" class="fa fa-star fa-2x my-btn" id="second"></button>
@@ -32,7 +47,8 @@
   <div class="column">
       
     <div id="output">
-      <p>We recommend the following games for {{obj.games}} fans: {{obj.rec|linebreaksbr}}</p>
+      <p id="title">We recommend the following games for {{obj.games}} fans: </p>
+      <div id="user-out">{{obj.rec|linebreaksbr}}</div>
     </div>
     <!-- POSS GET RID OF DUPE RECS-->
     
