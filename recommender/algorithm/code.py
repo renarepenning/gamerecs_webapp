@@ -3,11 +3,13 @@ import numpy as np
 import os
 import threading
 import time
-import data
+# import data
 
 # Upload path to csv file containing games
-# PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
-PATH_TO_FILE = ''
+PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
+PATH_TO_DATA = ''
+#"C:/Users/Matthew Raw/Downloads/ALGO TEST.csv"
+#PATH_TO_FILE = ''
 try:
     df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
     
@@ -17,7 +19,7 @@ except:
 
 
 
-test = df.iloc[5005]
+test = df.iloc[2005]
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
 
@@ -62,7 +64,7 @@ def get_input(game):
         return df[df['name'] == game].iloc[0]
 
     except:
-        print('ERROR')
+        print('ERROR - get input')
 
 
 def transform( test, columns=master_cols, df=df):
@@ -97,7 +99,7 @@ def transform( test, columns=master_cols, df=df):
             pass
 
     master = master[out_cols]
-    master.to_csv("C:/Users/Matthew Raw/Downloads/ALGO TEST.csv")
+    master.to_csv(PATH_TO_DATA)
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
     print('Transform Time', end)
@@ -124,7 +126,7 @@ def save_file(game, columns: list, df: pd.DataFrame = df):
 
 
     except:
-        print(game, ' ERR')
+        print(game, ' ERR - Saver')
 
 
 def multiple_games(games: list, df=df,
