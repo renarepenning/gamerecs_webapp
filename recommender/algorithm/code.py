@@ -6,6 +6,7 @@ import time
 import data
 
 # Upload path to csv file containing games
+# PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
 PATH_TO_FILE = ''
 try:
     df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
@@ -61,7 +62,7 @@ def get_input(game):
         return df[df['name'] == game].iloc[0]
 
     except:
-        print('FUCK YOU')
+        print('ERROR')
 
 
 def transform( test, columns=master_cols, df=df):
@@ -83,7 +84,7 @@ def transform( test, columns=master_cols, df=df):
             master = master.join(ser)
             out_cols.append(col)
         except:
-            #print("FUCK YOU", col)
+            #print("err", col)
             pass
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
 
@@ -123,7 +124,7 @@ def save_file(game, columns: list, df: pd.DataFrame = df):
 
 
     except:
-        print(game, 'fucking sucks')
+        print(game, ' ERR')
 
 
 def multiple_games(games: list, df=df,
@@ -137,7 +138,7 @@ def multiple_games(games: list, df=df,
         os.rmdir(SAVE_DIR)
     """
     if not os.path.exists(SAVE_DIR):
-        print("FUCK")
+        print("ERR")
         os.mkdir(SAVE_DIR)
     threads = list()
     master = pd.DataFrame(index=df['name'], columns=['Total'])
