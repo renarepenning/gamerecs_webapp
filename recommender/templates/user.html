@@ -4,9 +4,27 @@
 
 <style>
     #user-out {
-      background-color: whitesmoke;
+      background-color: #f5fbff;
       max-width: 50%;
-      margin: 30px;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 30px;
+    }
+    #title {
+    font-weight: bolder;
+    font-size: large;
+    color: #255250;
+    }
+
+    #time {
+      text-align: center;
+    }
+
+    #rating {
+      color: #4f8b8a;;
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
     }
 
     input {
@@ -26,18 +44,15 @@
       color: #fff;
       cursor: pointer;
     }
-    #rating {
-      color: green;
-      text-align: center;
-    }
 
 </style>
     <h1>Your Recommendations</h1>
     {% for r in recs %}
     <div id="user-out">
-        <p><em>Game: {{ r.games }}</em> -- (entered on {{r.timestamp}})</p>
+        <p id="title">{{ r.games }}</p>
         <p>Recommended Games: {{r.rec|linebreaksbr }}</p>
         <p id="rating">Your rating: {{ r.rating }}</p>
+        <p id="time"><em>Entered on {{r.timestamp}}</em></p>
     </div>
     {% endfor %}
     <br>
