@@ -3,18 +3,20 @@ import numpy as np
 import os
 import threading
 import time
-
-"""https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
+import data
 
 # Upload path to csv file containing games
-PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv'
+PATH_TO_FILE = ''
 try:
     df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
-
+    
 except:
     df = pd.read_csv(PATH_TO_FILE)
 
-test = df.iloc[5]
+
+
+
+test = df.iloc[5005]
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
 
@@ -57,11 +59,12 @@ def transform_column(target, column, df=df):
 def get_input(game):
     try:
         return df[df['name'] == game].iloc[0]
+
     except:
         print('FUCK YOU')
 
 
-def transform(test, columns=master_cols, df=df):
+def transform( test, columns=master_cols, df=df):
     df = df.set_index("name")
     df['name'] = df.index
 
@@ -80,27 +83,35 @@ def transform(test, columns=master_cols, df=df):
             master = master.join(ser)
             out_cols.append(col)
         except:
-            # print("FUCK YOU", col)
+            #print("FUCK YOU", col)
             pass
-    print(test.loc['name'], out_cols)
+    weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
+
+    weight_dict = {}
+    for index, weight in enumerate(weights):
+        weight_dict[columns[index]] = weight
+        try:
+            master[columns[index]] = master[columns[index]] * weight
+        except:
+            pass
+
     master = master[out_cols]
+    master.to_csv("C:/Users/Matthew Raw/Downloads/ALGO TEST.csv")
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
     print('Transform Time', end)
     master = master.drop(test.loc['name'])
-    return master.sort_values('Total')
+    return master.sort_values('Total'), weight_dict
 
 
-def get_game(game: str or list, num=10):
+def get_game(game:str or list, num=10):
     if type(game) == str:
         test = get_input(game)
-        df = transform(test)
-        return df.sort_values('Total', ascending=False).head(num).index.tolist()
+        df, weights = transform(test)
+        return df.sort_values('Total', ascending=False).head(num).index.tolist(), weights
     else:
-        df = multiple_games(game)
-        return df.head(num).index.tolist()
-
-
+        df, weights = multiple_games(game)
+        return df.head(num).index.tolist(), weights
 def save_file(game, columns: list, df: pd.DataFrame = df):
     if not os.path.exists("Saver"):
         os.mkdir('Saver')
@@ -143,12 +154,10 @@ def multiple_games(games: list, df=df,
         thread.join()
 
     for game in games:
-        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv', index_col=0)['Total'])
+        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv',index_col=0)['Total'])
         pdf[game] = pdf['Total']
-
         master = master.join(pdf[[game]])
 
-        print(master.columns, 'kjljlkhk')
     master['Total'] = master.sum(axis=1)
     return master[['Total']].sort_values('Total', ascending=False)
 
@@ -175,6 +184,7 @@ def preprocess(df: pd.DataFrame, columns=master_cols):
     print('Start to Finish', end, 'Seconds')
     print('Average Time per sample', end / len(df), 'Seconds')
 
+
 # Pandas DataFrame of IGDB games
 def build_ul(df=df):
     front = '''<li><a href="#">'''
@@ -194,14 +204,4 @@ def build_ul(df=df):
         print('</ul>')
         f.close()
 
-
-#get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
-
-def formatOutput(recs):
-    outputStr = "\n\n"
-    for i in range(1, len(recs)):
-        outputStr += str(i) + ". " + recs[i] + "\n\n"
-    return outputStr
-
-def getRec(game):
-    return formatOutput(get_game(game))
+get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])
