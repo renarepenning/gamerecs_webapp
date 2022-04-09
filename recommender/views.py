@@ -19,6 +19,9 @@ User = get_user_model()
 
 @login_required
 def add_entry(request, *args, **kwargs):
+    userid = request.user.pk # gives primary key
+    entry = Entry.objects.all().filter(user_id=userid)
+
     form = EntryForm(request.POST or None)
     if form.is_valid():
         obj = form.save(commit=False)
@@ -26,7 +29,7 @@ def add_entry(request, *args, **kwargs):
         obj.save()
         form = EntryForm()  # returned cleaned form
         return redirect("/user-home")
-    return render(request, "entryform.html", {"title":"tester form", "form": form})
+    return render(request, "entryform.html", {"prof":entry, "form": form})
 
 @login_required
 def user_view(request):
