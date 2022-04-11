@@ -43,6 +43,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'register' %}" style="color:#e3f2fd" >Sign up</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'poster' %}" style="color:#e3f2fd" >Poster</a>
+          </li>
         </ul>
       </div>
       <p id="username"><em>{{request.user.username}} </em><p>
@@ -56,7 +59,6 @@
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'user-home' %}">User Home</a>
-      <a class="nav-link" style="color:#e3f2fd" href="{% url 'add_entry' %}">Add User Profile</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'get-rec' %}">Get Rec</a>
     {% endblock %}
   </aside>

@@ -7,5 +7,5 @@ def home(request):
 
     #return HttpResponse('HOME PAGE \n Welcome to our capstone website')
 
-def ms6(request):
-    return render(request, 'ms6.html')
+def poster(request):
+    return render(request, 'poster.html')

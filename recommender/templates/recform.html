@@ -31,6 +31,7 @@
       </div>
     </form>
     <!-- p>{{ obj }}</p -->
+    {% if obj.rec %}
     <p id="title">Please rate suggestion</p>
       <form class="rate-form" action="" method="POST" id="{{obj.id}}" style="padding-left: 20px;">
         {% csrf_token %}
@@ -42,14 +43,16 @@
       </form>
       <br>
       <div id="confirm-box"></div>
+      {% endif %}
     
   </div>
   <div class="column">
-      
+    {% if obj.rec %}
     <div id="output">
       <p id="title">We recommend the following games for {{obj.games}} fans: </p>
       <div id="user-out">{{obj.rec|linebreaksbr}}</div>
     </div>
+    {% endif %}
     <!-- POSS GET RID OF DUPE RECS-->
     
 

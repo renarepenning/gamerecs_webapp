@@ -10,11 +10,25 @@
 </style>
 
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
-<h3 class="title">Please tell us about yourself!</h3>
+
+
+{% if prof.count > 0 %}
+<h1 class="title"> Your Profile: </h1>
+<div id="output">me: {{ prof.age }}, {{ prof.genre }},  {{ prof.keyword }}, {{ prof.theme }}, {{ prof.game_modes }}, {{ prof.tags }},{{ prof.platforms }},</div>
+
+{% else %}
+
+<h3 class="title">Please tell us about your preferences!</h3>
 <form method='POST' action="." id="body">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button> 
 </form>
+
+{% endif %}
+
+
+
+
 
 
 {% endblock %}
