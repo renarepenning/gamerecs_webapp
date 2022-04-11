@@ -122,7 +122,7 @@ def transform( test, columns=master_cols, df=df):
     return master.sort_values('Total'), weight_dict
 
 
-def get_game(game:str or list, num=10):
+def get_game(game:str or list, num=6):
     if type(game) == str:
         test = get_input(game)
         df, weights = transform(test)
@@ -146,7 +146,7 @@ def save_file(game, columns: list, df: pd.DataFrame = df):
 
 def multiple_games(games: list, df=df,
                    columns: list = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords'],
-                   num=10):
+                   num=6):
     # print(df.name.tolist())
     SAVE_DIR = 'Saver'
     """if os.path.exists(SAVE_DIR):
