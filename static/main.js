@@ -107,11 +107,11 @@ if (one) {
                 },
                 success: function(response){
                     console.log(response)
-                    confirmBox.innerHTML = `<p>Your rating: ${response.rating}</p>`
+                    confirmBox.innerHTML = `<p>      Your rating: ${response.rating}</p>`
                 },
                 error: function(error){
                     console.log(error)
-                    confirmBox.innerHTML = '<p>Please enter a game first.</p>'
+                    confirmBox.innerHTML = '<p>       Please enter a game first.</p>'
                 }
             })
         })
