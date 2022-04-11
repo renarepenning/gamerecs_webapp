@@ -11,6 +11,7 @@ import time
 PATH_TO_FILE = 'recommender/algorithm/IGDB_games.csv' #NEED NEW FILE
 PATH_TO_DATA = '???????' # file for dropdown menu
 PATH_TO_CSV = " " # 
+os.getcwd()
 try:
     df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
     
@@ -87,11 +88,13 @@ def transform( test, columns=master_cols, df=df):
             master = master.join(ser)
             out_cols.append(col)
         except:
-            #print("ERR ", col)
+            #print("ERR -- ", col)
             pass
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
 
     weight_dict = {}
+    print("TEST ", test)
+    weight_dict['Game'] = test.name
     for index, weight in enumerate(weights):
         weight_dict[columns[index]] = weight
         try:
@@ -100,7 +103,18 @@ def transform( test, columns=master_cols, df=df):
             pass
 
     master = master[out_cols]
-    master.to_csv(PATH_TO_CSV)
+
+    wdf = pd.DataFrame(pd.Series(weight_dict)).T
+    if 'HistoricalData.csv' not in os.listdir():
+        wdf.to_csv("HistoricalData.csv")
+       
+    else:
+        pdf = pd.read_csv('HistoricalData.csv', index_col=0)
+        pdf = pdf.append(weight_dict, ignore_index=True)
+        pdf.to_csv('HistoricalData.csv')
+        print(pdf)
+   
+    #print(pd.DataFrame(master))
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
     print('Transform Time', end)
@@ -211,4 +225,5 @@ def build_ul(df=df):
 """get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])"""
 
 def getRec(game):
-    get_game(game)
+    games, weights = get_game(game)
+    return games
