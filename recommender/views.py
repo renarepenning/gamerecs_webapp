@@ -33,13 +33,10 @@ def get_rec(request, *args, **kwargs):
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
-        ## CALL FUNCTION ON THE GAME THAT WAS INPUT
-        obj.rec = getRec(obj.games)
-        ##
+        obj.rec = getRec(obj.games) ## CALL FUNCTION ON THE GAME THAT WAS INPUT
         obj.save()
         form = RecForm()  # returned cleaned form
-        #return redirect("/user-home")
-    return render(request, "recform.html", {"form": form, "obj":obj})# "rec": obj.rec, "obj":obj})
+    return render(request, "recform.html", {"form": form, "obj":obj})
 
 # @transaction.commit_manually
 def rate(request):

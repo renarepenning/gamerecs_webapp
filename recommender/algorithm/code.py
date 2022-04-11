@@ -222,8 +222,14 @@ def build_ul(df=df):
         print('</ul>')
         f.close()
 
+def formatOutput(recs):
+    outputStr = "\n\n"
+    for i in range(1, len(recs)):
+        outputStr += str(i) + ". " + recs[i] + "\n\n"
+    return outputStr
+
 """get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])"""
 
 def getRec(game):
     games, weights = get_game(game)
-    return games
+    return formatOutput(games)
