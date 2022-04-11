@@ -31,15 +31,14 @@ from recommender.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('', views.home, name="front-page")  # path for home page
     # sends urls with user prefix to user file
-
     , path('login/', login_view, name="login")
     , path('register/', register_view, name="register")
     , path('logout/', logout_view, name="logout")
     , path('user-home/', user_view, name='user-home')
     , path('recommender/', get_rec, name="get-rec")
     , path("rate/", rate)
+    , path("poster/", views.poster, name="poster")
 
 ]
