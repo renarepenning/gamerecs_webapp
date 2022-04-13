@@ -8,7 +8,7 @@ import time
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
 # Upload path to csv file containing games
-PATH_TO_FILE = 'recommender/algorithm/IGDB_games.csv' #NEED NEW FILE
+PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv' #NEED NEW FILE
 PATH_TO_DATA = '???????' # file for dropdown menu
 PATH_TO_CSV = " " # 
 os.getcwd()
