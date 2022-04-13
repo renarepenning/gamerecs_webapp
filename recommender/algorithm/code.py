@@ -3,27 +3,26 @@ import numpy as np
 import os
 import threading
 import time
-#import data
+import psycopg2
+# WHITE DB
+DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d88ef9aee30a6ae12913b986d00@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d6ula8hn40666q"
+
+con = psycopg2.connect(DATABASE_URL)
+cur = con.cursor()
 
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
-# Upload path to csv file containing games
-PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv' #NEED NEW FILE
-PATH_TO_DATA = '???????' # file for dropdown menu
-PATH_TO_CSV = " " # 
-"""os.getcwd()"""
-try:
-    df = pd.read_csv(PATH_TO_FILE).drop_duplicates()
-    
-except:
-    df = pd.read_csv(PATH_TO_FILE)
-
-
-
 
 # test = df.iloc[5005]
+import sys
 
-master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
+master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords', 'Indie']
+
+indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
+indie_df['Indie'] = '[1]'
+df = pd.read_csv('recommender/algorithm/IGDB_games.csv').set_index('id')
+df['Indie'] = indie_df['Indie']
+df['Indie'].fillna('[0]', inplace=True)
 
 
 def conjunction(lst1, lst2):
@@ -61,12 +60,13 @@ def transform_column(target, column, df=df):
     return score
 
 
-def get_input(game):
+def get_input(game, df=df):
     try:
-        return df[df['name'] == game].iloc[0]
-
+        df = df[df['name'] == game].iloc[0]
+        df['Indie'] = '[1]'
+        return df
     except:
-        print('ERR - getinput')
+        print('ERR -- Get Input')
 
 
 def transform( test, columns=master_cols, df=df):
