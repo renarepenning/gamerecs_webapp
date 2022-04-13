@@ -8,7 +8,7 @@ import time
 """https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
 
 # Upload path to csv file containing games
-PATH_TO_FILE = 'recommender/algorithm/IGDB_games.csv' #NEED NEW FILE
+PATH_TO_FILE = 'recommender/algorithm/small_IGDB_games.csv' #NEED NEW FILE
 PATH_TO_DATA = '???????' # file for dropdown menu
 PATH_TO_CSV = " " # 
 """os.getcwd()"""
@@ -21,7 +21,7 @@ except:
 
 
 
-test = df.iloc[5005]
+# test = df.iloc[5005]
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']
 
