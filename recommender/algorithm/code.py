@@ -6,7 +6,7 @@ import threading
 import time
 import psycopg2
 import sys
-# WHITE DB
+# WHITE DB -- Polished
 DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d88ef9aee30a6ae12913b986d00@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d6ula8hn40666q"
 con = psycopg2.connect(DATABASE_URL)
 cur = con.cursor()
@@ -14,8 +14,7 @@ cur = con.cursor()
 query = f"""SELECT * FROM public."dataframe";"""
 # return results as a dataframe
 df = pd.read_sql(query, con)#.set_index('id')
-print(df)
-print("DF LOADED")
+
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
 """indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
@@ -68,9 +67,9 @@ def get_input(game, df=df):
         return df
     except:
         print('ERR -- Get Input')"""
-    print("GET INPUT")
+    # print("GET INPUT")
     try:
-        print("looking for name column.....")
+        # print("looking for name column.....")
         return df[df['name'] == game].iloc[0]
     except:
         print('ERR - getinput')
@@ -79,20 +78,16 @@ def get_input(game, df=df):
 def transform( test, columns=master_cols, df=df):
     df = df.set_index("name")
     df['name'] = df.index
-    print("got name")
+    # print("got name")
     master = pd.DataFrame(columns=master_cols,
                           index=df.index.tolist())
-    print("a")
+    
     out_columns = ['name']
-    print("b")
     df['Columns Counted'] = 0
-    print("c")
     start = time.time()
     df['Total'] = 0
     master = df[['Total']]
-    print("done total")
     out_cols = list()
-    print("before loop")
     for col in columns:
 
         try:
@@ -102,13 +97,11 @@ def transform( test, columns=master_cols, df=df):
         except:
             #print("ERR -- ", col)
             pass
-    print("after loop")
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
 
     weight_dict = {}
     print("TEST ", test)
     weight_dict['Game'] = test.name
-    print("second for loop")
     for index, weight in enumerate(weights):
         weight_dict[columns[index]] = weight
         try:
@@ -137,30 +130,19 @@ def transform( test, columns=master_cols, df=df):
 
 
 def get_game(game:str or list, num=6):
-    print("get game")
     if type(game) == str:
         test = get_input(game)
-        print("got input")
         df, weights = transform(test)
-        print("transformed")
         return df.sort_values('Total', ascending=False).head(num).index.tolist(), weights
     else:
         df, weights = multiple_games(game)
         return df.head(num).index.tolist(), weights
-def save_file(game, columns: list, df: pd.DataFrame = df):
-    if not os.path.exists("Saver"):
-        os.mkdir('Saver')
-
-    try:
-        row = get_input(game)
-        df = transform(row)
-        df.to_csv(f'Saver/{game}.csv')
 
 
-    except:
-        print(game, ' ERR')
 
-
+"""
+Possible future add on
+"""
 def multiple_games(games: list, df=df,
                    columns: list = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords'],
                    num=6):
@@ -226,27 +208,36 @@ def formatOutput(recs):
     return outputStr
 
 def getRec(game):
-    print("GET REC")
     games, weights = get_game(game)
-    print("got game")
     return formatOutput(games)
 
-# # Pandas DataFrame of IGDB games
-# def build_ul(df=df):
-#     front = '''<li><a href="#">'''
-#     back = '''</a></li>'''
-#     with open(PATH_TO_DATA, 'x') as f:
-#         f.write('''<ul id="myUL">\n''')
-#         print('''<ul id="myUL">''')
-#         for game in df.name.tolist():
-#             try:
-#                 line = '\t' + front + game + back + '\n'
-#                 print(line)
-#                 f.write(line)
-#             except:
-#                 pass
 
-#         f.write('</ul>')
-#         print('</ul>')
-#         f.close()
+"""
+USED FOR TESTING
+"""
+def build_ul(df=df):
+    front = '''<li><a href="#">'''
+    back = '''</a></li>'''
+    with open("PATH_TO_DATA", 'x') as f:
+        f.write('''<ul id="myUL">\n''')
+        print('''<ul id="myUL">''')
+        for game in df.name.tolist():
+            try:
+                line = '\t' + front + game + back + '\n'
+                print(line)
+                f.write(line)
+            except:
+                pass
 
+        f.write('</ul>')
+        print('</ul>')
+        f.close()
+def save_file(game, columns: list, df: pd.DataFrame = df):
+    if not os.path.exists("Saver"):
+        os.mkdir('Saver')
+    try:
+        row = get_input(game)
+        df = transform(row)
+        df.to_csv(f'Saver/{game}.csv')
+    except:
+        print(game, ' ERR')
