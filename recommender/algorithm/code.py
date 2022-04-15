@@ -1,5 +1,4 @@
 """https://towardsdatascience.com/set-up-heroku-postgresql-for-your-app-in-python-7dad9ceb0f92"""
-
 import pandas as pd
 import numpy as np
 import os
@@ -15,7 +14,7 @@ cur = con.cursor()
 query = f"""SELECT * FROM public."DataFrame";"""
 # return results as a dataframe
 df = pd.read_sql(query, con)#.set_index('id')
-# print(df.columns)
+print("cols:", df.columns)
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
 """indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
