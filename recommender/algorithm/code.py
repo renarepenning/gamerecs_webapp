@@ -14,7 +14,8 @@ cur = con.cursor()
 query = f"""SELECT * FROM public."dataframe";"""
 # return results as a dataframe
 df = pd.read_sql(query, con)#.set_index('id')
-# print("cols:", df.columns)
+print(df)
+print("DF LOADED")
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
 """indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
@@ -34,7 +35,8 @@ def disjunction(lst1, lst2):
 
 def clean(array):
     try:
-        array = array.split('[')[1].split(']')[0].split(', ')
+        #array = array.split('[')[1].split(']')[0].split(', ')
+        array = array.split(', ')
     except:
         print(array)
     return list(map(lambda x: int(x), array))
@@ -66,7 +68,9 @@ def get_input(game, df=df):
         return df
     except:
         print('ERR -- Get Input')"""
+    print("GET INPUT")
     try:
+        print("looking for name column.....")
         return df[df['name'] == game].iloc[0]
     except:
         print('ERR - getinput')
@@ -75,15 +79,20 @@ def get_input(game, df=df):
 def transform( test, columns=master_cols, df=df):
     df = df.set_index("name")
     df['name'] = df.index
-
-    master = pd.DataFrame(columns=df.index.tolist(),
+    print("got name")
+    master = pd.DataFrame(columns=master_cols,
                           index=df.index.tolist())
+    print("a")
     out_columns = ['name']
+    print("b")
     df['Columns Counted'] = 0
+    print("c")
     start = time.time()
     df['Total'] = 0
     master = df[['Total']]
+    print("done total")
     out_cols = list()
+    print("before loop")
     for col in columns:
 
         try:
@@ -93,11 +102,13 @@ def transform( test, columns=master_cols, df=df):
         except:
             #print("ERR -- ", col)
             pass
+    print("after loop")
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
 
     weight_dict = {}
     print("TEST ", test)
     weight_dict['Game'] = test.name
+    print("second for loop")
     for index, weight in enumerate(weights):
         weight_dict[columns[index]] = weight
         try:
@@ -106,7 +117,7 @@ def transform( test, columns=master_cols, df=df):
             pass
 
     master = master[out_cols]
-
+    print("before historical data")
     wdf = pd.DataFrame(pd.Series(weight_dict)).T
     if 'HistoricalData.csv' not in os.listdir():
         wdf.to_csv("HistoricalData.csv")
@@ -129,7 +140,9 @@ def get_game(game:str or list, num=6):
     print("get game")
     if type(game) == str:
         test = get_input(game)
+        print("got input")
         df, weights = transform(test)
+        print("transformed")
         return df.sort_values('Total', ascending=False).head(num).index.tolist(), weights
     else:
         df, weights = multiple_games(game)
@@ -215,6 +228,7 @@ def formatOutput(recs):
 def getRec(game):
     print("GET REC")
     games, weights = get_game(game)
+    print("got game")
     return formatOutput(games)
 
 # # Pandas DataFrame of IGDB games
