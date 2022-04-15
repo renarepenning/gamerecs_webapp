@@ -1,17 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 
 {% block content %}
 {% include "projinfo.html" %}
 
-  
+<style>
+  #user-recs3{
+      background-color: #f5fbff;
+      max-width: 100%;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 30px;
+      color: #255250;
+    }
+    #user-recs4{
+      background-color: #f5fbff;
+      max-width: 100%;
+      padding: 20px;
+      margin: 0px;
+      border-radius: 30px;
+      color: black;
+    }
+    #Links{
+      background-color: #255250;
+      max-width: 30%;
+      padding: 20px;
+      margin: 30px;
+      border-radius: 3px;
+      color: white;
+      border: 3px solid #377975;
+    }
+</style>
+
 </br></br>
-<div id="body">
+<div id="user-recs3" style="padding: 20px;">
   <h3 class="title">About the project</h3>
+  <div id="user-recs4">
   <p>Authors: Rena Repenning, Kelly Romer, Emily O'Connell, Matt Rau, and Vaughn Bangash.</p>
   <p>Faculty mentor: Dr Anastasia Kurdia</p>
   <p>Website built using Django, Heroku, and Bootstrap. Data scraped from IGDB, Reddit, and Wikipedia.</p>
-
+</div>
   <h3 class="title">Access our code</h3>
   <a class="nav-link" href="https://github.com/renarepenning/VideoGameRecommender">Algorithm Code Repo</a>
   <a class="nav-link" href="https://github.com/renarepenning/gamerecs_webapp">Web App Repo</a>

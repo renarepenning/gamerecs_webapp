@@ -1,8 +1,89 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<br><br><br>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--Source: https://www.w3schools.com/howto/howto_js_dropdown.asp -->
 <style>
+    #user-out {
+      background-color: #f5fbff;
+      max-width: 50%;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 30px;
+      
+    }
+    #user-out2 {
+      background-color: #f5fbff;
+      max-width: 50%;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 30px;
+      position: absolute;
+      display: inline;
+    }
+    .dropbtn {
+      background-color: #f5fbff;
+      color: black;
+      padding: 10px;
+      font-size: 16px;
+      border: black;
+      cursor: pointer;
+    }
+    
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #181a1b54;;
+      border-radius: 30px;
+    }
+    
+    .dropdown {
+      float: left;
+      position: relative;
+      display: inline-block;
+      border-radius: 30px;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 630px;
+      background-color: #f5fbff;
+      border-radius: 60px;
+      min-width: 100%;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      right: 0;
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 0px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    #title {
+    font-weight: bolder;
+    font-size: 14;
+    color: #255250;
+    }
+
+    #time {
+      text-align: center;
+    }
+
+    #rating {
+      color: #4f8b8a;;
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
+    }
+    
+    .dropdown a:hover {background-color: #ddd;}
+    
+    .show {display: block;}
+
     #user-out {
       background-color: #f5fbff;
       max-width: 50%;
@@ -55,5 +136,11 @@
         <p id="time"><em>Entered on {{r.timestamp}}</em></p>
     </div>
     {% endfor %}
+
+
+
+   
+
+
     <br>
 {% endblock %}

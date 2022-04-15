@@ -17,8 +17,13 @@ from .algorithm.code import getRec
 from django.contrib.auth import authenticate, login, logout, get_user_model
 User = get_user_model()                         
 
-@login_required
+from django_user_agents.utils import get_user_agent
+
+
+
+
 def user_view(request):
+    user_agent = get_user_agent(request)
     # https://www.youtube.com/watch?v=VxOsCKMStuw
     userid = request.user.pk # gives primary key
     entries = Entry.objects.all().filter(user_id=userid)

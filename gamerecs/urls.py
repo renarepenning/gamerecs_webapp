@@ -26,7 +26,8 @@ from accounts.views import(
 from recommender.views import (
     user_view,
     get_rec,
-    rate
+    rate,
+    #mobile_user
 )
 
 urlpatterns = [
@@ -37,6 +38,7 @@ urlpatterns = [
     , path('register/', register_view, name="register")
     , path('logout/', logout_view, name="logout")
     , path('user-home/', user_view, name='user-home')
+    #, path('mobile-user-home/', mobile_user, name='mobile_user')
     , path('recommender/', get_rec, name="get-rec")
     , path("rate/", rate)
     , path("poster/", views.poster, name="poster")

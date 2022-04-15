@@ -1,12 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<style>
+  #survey-link{
+    
+      max-width: 70%;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 30px;
+      top: 100px;
+      position: absolute;
+      left: 150px;
+      float: center;
+      text-align: center;
+      font-weight: bold;
+      color: red;
+    }
+</style>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   {% block title %}
   <title>Video Game Rec App</title>
     {% endblock %}
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Favicon -->
   <link rel="shortcut icon" href="https://img.icons8.com/emoji/48/000000/video-game-emoji.png"/>
   <!-- Bootstrap CSS -->
@@ -64,7 +81,7 @@
   </aside>
 
   <div class="main">
-    <div id="warning">
+    <div id="survey-link">
       <em> Please take our <a href="https://forms.gle/jJhL1sBsRdgt7uca7" target="_blank">survey</a> after testing!!</em>
       <p>We would appreciate if you could screenshot any issues and upload them to the survey :)</p>
     </div>
