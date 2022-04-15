@@ -21,7 +21,6 @@ User = get_user_model()
 
 
 def user_view(request):
-    user_agent = get_user_agent(request)
     # https://www.youtube.com/watch?v=VxOsCKMStuw
     userid = request.user.pk # gives primary key
     entries = Entry.objects.all().filter(user_id=userid)
