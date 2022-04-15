@@ -17,8 +17,6 @@ from .algorithm.code import getRec
 from django.contrib.auth import authenticate, login, logout, get_user_model
 User = get_user_model()                         
 
-from django_user_agents.utils import get_user_agent
-
 
 
 
