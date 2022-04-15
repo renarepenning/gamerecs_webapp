@@ -30,15 +30,16 @@ def user_view(request):
 
 @login_required
 def get_rec(request, *args, **kwargs):
+    output = ""
     form = RecForm(request.POST or None)
     obj = None
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
-        obj.rec = getRec(obj.games) ## CALL FUNCTION ON THE GAME THAT WAS INPUT
+        obj.rec, output = getRec(obj.games) ## CALL FUNCTION ON THE GAME THAT WAS INPUT
         obj.save()
         form = RecForm()  # returned cleaned form
-    return render(request, "recform.html", {"form": form, "obj":obj})
+    return render(request, "recform.html", {"form": form, "obj":obj, "output":output})
 
 # @transaction.commit_manually
 def rate(request):
