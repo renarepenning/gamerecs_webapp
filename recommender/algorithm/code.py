@@ -126,6 +126,7 @@ def transform( test, columns=master_cols, df=df):
 
 
 def get_game(game:str or list, num=6):
+    print("get game")
     if type(game) == str:
         test = get_input(game)
         df, weights = transform(test)
@@ -212,6 +213,7 @@ def formatOutput(recs):
     return outputStr
 
 def getRec(game):
+    print("GET REC")
     games, weights = get_game(game)
     return formatOutput(games)
 
