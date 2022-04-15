@@ -48,14 +48,20 @@
   <div class="column">
     {% if obj.rec %}
     <div id="output">
-      <p id="title">We recommend the following games for {{obj.games}} fans: </p>
+      <p id="title">Recommendations for "{{obj.games}}"" fans: </p>
       <div id="user-out">{{obj.rec|linebreaksbr}}</div>
     </div>
+    
     {% endif %}
     <!-- POSS GET RID OF DUPE RECS-->
-    
-
   </div>
+</div>
+{% if obj.rec %}
+<div class="row">
+  <div id="output">
+    <p id="title">Runtime Statistics:<br/><em>{{output}}</em></p>
+  </div>
+  {% endif %}
 </div>
 
 <script>
