@@ -1,28 +1,28 @@
+"""https://towardsdatascience.com/set-up-heroku-postgresql-for-your-app-in-python-7dad9ceb0f92"""
+
 import pandas as pd
 import numpy as np
 import os
 import threading
 import time
 import psycopg2
+import sys
 # WHITE DB
 DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d88ef9aee30a6ae12913b986d00@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d6ula8hn40666q"
-
 con = psycopg2.connect(DATABASE_URL)
 cur = con.cursor()
+# query 
+query = f"""SELECT * FROM public."DataFrame";"""
+# return results as a dataframe
+df = pd.read_sql(query, con)#.set_index('id')
+# print(df.columns)
+master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
-"""https://github.com/renarepenning/VideoGameRecommender/tree/main/Algorithm_Current"""
-
-
-# test = df.iloc[5005]
-import sys
-
-master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords', 'Indie']
-
-indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
+"""indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
 indie_df['Indie'] = '[1]'
-df = pd.read_csv('recommender/algorithm/IGDB_games.csv').set_index('id')
+#df = pd.read_csv('recommender/algorithm/IGDB_games.csv').set_index('id')
 df['Indie'] = indie_df['Indie']
-df['Indie'].fillna('[0]', inplace=True)
+df['Indie'].fillna('[0]', inplace=True)"""
 
 
 def conjunction(lst1, lst2):
@@ -61,12 +61,16 @@ def transform_column(target, column, df=df):
 
 
 def get_input(game, df=df):
-    try:
+    """try:
         df = df[df['name'] == game].iloc[0]
         df['Indie'] = '[1]'
         return df
     except:
-        print('ERR -- Get Input')
+        print('ERR -- Get Input')"""
+    try:
+        return df[df['name'] == game].iloc[0]
+    except:
+        print('ERR - getinput')
 
 
 def transform( test, columns=master_cols, df=df):
@@ -202,34 +206,32 @@ def preprocess(df: pd.DataFrame, columns=master_cols):
     print('Start to Finish', end, 'Seconds')
     print('Average Time per sample', end / len(df), 'Seconds')
 
-
-# Pandas DataFrame of IGDB games
-def build_ul(df=df):
-    front = '''<li><a href="#">'''
-    back = '''</a></li>'''
-    with open(PATH_TO_DATA, 'x') as f:
-        f.write('''<ul id="myUL">\n''')
-        print('''<ul id="myUL">''')
-        for game in df.name.tolist():
-            try:
-                line = '\t' + front + game + back + '\n'
-                print(line)
-                f.write(line)
-            except:
-                pass
-
-        f.write('</ul>')
-        print('</ul>')
-        f.close()
-
 def formatOutput(recs):
     outputStr = "\n\n"
     for i in range(1, len(recs)):
         outputStr += str(i) + ". " + recs[i] + "\n\n"
     return outputStr
 
-"""get_game(['Spy Snatcher', 'Mirage', 'Out of the Park Baseball 12', 'Minecraft Starter Collection'])"""
-
 def getRec(game):
     games, weights = get_game(game)
     return formatOutput(games)
+
+# # Pandas DataFrame of IGDB games
+# def build_ul(df=df):
+#     front = '''<li><a href="#">'''
+#     back = '''</a></li>'''
+#     with open(PATH_TO_DATA, 'x') as f:
+#         f.write('''<ul id="myUL">\n''')
+#         print('''<ul id="myUL">''')
+#         for game in df.name.tolist():
+#             try:
+#                 line = '\t' + front + game + back + '\n'
+#                 print(line)
+#                 f.write(line)
+#             except:
+#                 pass
+
+#         f.write('</ul>')
+#         print('</ul>')
+#         f.close()
+
