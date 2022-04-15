@@ -19,7 +19,7 @@ User = get_user_model()
 
 
 
-
+@login_required
 def user_view(request):
     # https://www.youtube.com/watch?v=VxOsCKMStuw
     userid = request.user.pk # gives primary key
