@@ -48,11 +48,11 @@ def transform_column(target, column, df=df):
     start = time.time()
     test = clean(target[column])
     clean_time = time.time()
-    o1 = ' <br/> Singular Clean Time: ' + str("{:.2f}".format(clean_time - start)) + '\n'
+    o1 = ' -- Singular Clean Time: ' + str("{:.2f}".format(clean_time - start)) + '\n'
     print(o1)
     col = df[column].dropna().apply(clean)
     clean_col_time = time.time() - clean_time
-    o2 = 'Column Clean Time: ' + str("{:.2f}".format(clean_col_time)) + '\n'
+    o2 = ' Column Clean Time: ' + str("{:.2f}".format(clean_col_time)) + '\n'
     print(o2)
     func = lambda x: conjunction(x, test)
     conj = col.apply(func)
@@ -60,9 +60,9 @@ def transform_column(target, column, df=df):
     disj = col.apply(func)
     score = conj.apply(lambda x: len(x)) / disj.apply(lambda x: len(x))
     score_time = time.time() - clean_time - clean_col_time
-    o3 = 'Score Time: ' + str("{:.2f}".format(score_time)) + '\n'
+    o3 = ' Score Time: ' + str("{:.2f}".format(score_time)) + '\n'
     print(o3)
-    OUTPUT += o1 + o2 + o3
+    # OUTPUT += o1 + o2 + o3
 
     return score
 
@@ -132,7 +132,7 @@ def transform( test, columns=master_cols, df=df):
     #print(pd.DataFrame(master))
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
-    o1 = 'Transform Time: ' + str("{:.2f}".format(end)) + '\n'
+    o1 = ' Transform Time: ' + str("{:.2f}".format(end)) + '\n'
     print(o1)
     OUTPUT += o1
     master = master.drop(test.loc['name'])
