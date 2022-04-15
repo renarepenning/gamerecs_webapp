@@ -7,6 +7,8 @@ import time
 import psycopg2
 import sys
 # WHITE DB -- Polished
+global OUTPUT
+OUTPUT = ""
 DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d88ef9aee30a6ae12913b986d00@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d6ula8hn40666q"
 con = psycopg2.connect(DATABASE_URL)
 cur = con.cursor()
@@ -42,20 +44,25 @@ def clean(array):
 
 
 def transform_column(target, column, df=df):
+    global OUTPUT
     start = time.time()
     test = clean(target[column])
     clean_time = time.time()
-    print('Singular Clean Time', clean_time - start)
+    o1 = ' <br/> Singular Clean Time: ' + str("{:.2f}".format(clean_time - start)) + '\n'
+    print(o1)
     col = df[column].dropna().apply(clean)
     clean_col_time = time.time() - clean_time
-    print('Column Clean Time', clean_col_time)
+    o2 = 'Column Clean Time: ' + str("{:.2f}".format(clean_col_time)) + '\n'
+    print(o2)
     func = lambda x: conjunction(x, test)
     conj = col.apply(func)
     func = lambda x: disjunction(x, test)
     disj = col.apply(func)
     score = conj.apply(lambda x: len(x)) / disj.apply(lambda x: len(x))
     score_time = time.time() - clean_time - clean_col_time
-    print('Score Time', score_time)
+    o3 = 'Score Time: ' + str("{:.2f}".format(score_time)) + '\n'
+    print(o3)
+    OUTPUT += o1 + o2 + o3
 
     return score
 
@@ -76,6 +83,7 @@ def get_input(game, df=df):
 
 
 def transform( test, columns=master_cols, df=df):
+    global OUTPUT
     df = df.set_index("name")
     df['name'] = df.index
     # print("got name")
@@ -124,7 +132,9 @@ def transform( test, columns=master_cols, df=df):
     #print(pd.DataFrame(master))
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
-    print('Transform Time', end)
+    o1 = 'Transform Time: ' + str("{:.2f}".format(end)) + '\n'
+    print(o1)
+    OUTPUT += o1
     master = master.drop(test.loc['name'])
     return master.sort_values('Total'), weight_dict
 
@@ -180,6 +190,7 @@ def multiple_games(games: list, df=df,
 
 
 def preprocess(df: pd.DataFrame, columns=master_cols):
+    global OUTPUT
     df = df.set_index("name")
     df = df[columns]
     df['name'] = df.index
@@ -198,8 +209,11 @@ def preprocess(df: pd.DataFrame, columns=master_cols):
         thread.join()
 
     end = time.time() - start
-    print('Start to Finish', end, 'Seconds')
-    print('Average Time per sample', end / len(df), 'Seconds')
+    out1 = 'Start to Finish: ' + str("{:.2f}".format(end)) + 'Seconds\n'
+    out2 = 'Average Time per sample: ' + str("{:.2f}".format(end / len(df))) + 'Seconds\n'
+    print(out1)
+    print(out2)
+    OUTPUT += out1 + out2
 
 def formatOutput(recs):
     outputStr = "\n\n"
@@ -209,7 +223,7 @@ def formatOutput(recs):
 
 def getRec(game):
     games, weights = get_game(game)
-    return formatOutput(games)
+    return formatOutput(games), OUTPUT
 
 
 """
