@@ -11,10 +11,10 @@ DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d
 con = psycopg2.connect(DATABASE_URL)
 cur = con.cursor()
 # query 
-query = f"""SELECT * FROM public."DataFrame";"""
+query = f"""SELECT * FROM public."dataframe";"""
 # return results as a dataframe
 df = pd.read_sql(query, con)#.set_index('id')
-print("cols:", df.columns)
+# print("cols:", df.columns)
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
 """indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
