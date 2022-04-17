@@ -19,11 +19,10 @@ df = pd.read_sql(query, con)#.set_index('id')
 
 master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
 
-"""indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv").set_index('id')
+indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv")#.set_index('id')
 indie_df['Indie'] = '[1]'
-#df = pd.read_csv('recommender/algorithm/IGDB_games.csv').set_index('id')
 df['Indie'] = indie_df['Indie']
-df['Indie'].fillna('[0]', inplace=True)"""
+df['Indie'].fillna('[0]', inplace=True)
 
 
 def conjunction(lst1, lst2):
@@ -68,18 +67,18 @@ def transform_column(target, column, df=df):
 
 
 def get_input(game, df=df):
-    """try:
+    try:
         df = df[df['name'] == game].iloc[0]
         df['Indie'] = '[1]'
         return df
     except:
-        print('ERR -- Get Input')"""
+        print('ERR -- Get Input')
     # print("GET INPUT")
-    try:
-        # print("looking for name column.....")
-        return df[df['name'] == game].iloc[0]
-    except:
-        print('ERR - getinput')
+    # try:
+    #     # print("looking for name column.....")
+    #     return df[df['name'] == game].iloc[0]
+    # except:
+    #     print('ERR - getinput')
 
 
 def transform( test, columns=master_cols, df=df):
