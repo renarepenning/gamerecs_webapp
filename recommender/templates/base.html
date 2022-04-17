@@ -38,13 +38,10 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">About<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'front-page' %}" style="color:#e3f2fd">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}" style="color:#e3f2fd" >Sign up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'poster' %}" style="color:#e3f2fd" >Poster</a>
+            <a class="nav-link" href="{% url 'poster' %}" style="color:#e3f2fd" >About</a>
           </li>
         </ul>
       </div>
@@ -56,6 +53,7 @@
 
   <aside class="aside aside-1" id="side">
     {% block sidebar %}
+      <a class="nav-link" href="{% url 'register' %}" style="color:#e3f2fd" >Sign up</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'login' %}">Login</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'logout' %}">Logout</a>
       <a class="nav-link" style="color:#e3f2fd" href="{% url 'user-home' %}">User Home</a>
