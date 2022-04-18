@@ -37,7 +37,7 @@ def clean(array):
     try:
         #array = array.split('[')[1].split(']')[0].split(', ')
         array = array.split(', ')
-    except:
+    except (AttributeError, IndexError, TypeError, ValueError):
         print(array)
     return list(map(lambda x: int(x), array))
 
@@ -71,7 +71,7 @@ def get_input(game, df=df):
         df = df[df['name'] == game].iloc[0]
         df['Indie'] = '[1]'
         return df
-    except:
+    except (AttributeError, IndexError, TypeError, ValueError):
         print('ERR -- Get Input')
     # print("GET INPUT")
     # try:
@@ -101,7 +101,7 @@ def transform( test, columns=master_cols, df=df):
             ser = pd.DataFrame(transform_column(test, col, df=df))
             master = master.join(ser)
             out_cols.append(col)
-        except:
+        except (AttributeError, IndexError, TypeError, ValueError):
             #print("ERR -- ", col)
             pass
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
@@ -113,7 +113,7 @@ def transform( test, columns=master_cols, df=df):
         weight_dict[columns[index]] = weight
         try:
             master[columns[index]] = master[columns[index]] * weight
-        except:
+        except (AttributeError, IndexError, TypeError, ValueError):
             pass
 
     master = master[out_cols]
@@ -221,8 +221,11 @@ def formatOutput(recs):
     return outputStr
 
 def getRec(game):
-    games, weights = get_game(game)
-    return formatOutput(games), OUTPUT
+    try:
+        games, weights = get_game(game)
+        return formatOutput(games), OUTPUT
+    except (AttributeError, IndexError, TypeError, ValueError):
+        pass
 
 
 """
@@ -239,7 +242,7 @@ def build_ul(df=df):
                 line = '\t' + front + game + back + '\n'
                 print(line)
                 f.write(line)
-            except:
+            except (AttributeError, IndexError, TypeError, ValueError):
                 pass
 
         f.write('</ul>')
@@ -252,5 +255,5 @@ def save_file(game, columns: list, df: pd.DataFrame = df):
         row = get_input(game)
         df = transform(row)
         df.to_csv(f'Saver/{game}.csv')
-    except:
+    except (AttributeError, IndexError, TypeError, ValueError):
         print(game, ' ERR')
