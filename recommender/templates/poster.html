@@ -28,15 +28,12 @@
 
 <br><br><br>
 
-<h5 id="title">Methods + approach</h5>
+<h5 id="title">Additional information</h5>
 
   <li style="font-weight: bold;">Data collection tool & methods</li>
   <p>The primary source of data is from the video game database IGDB. IGDB provided an ideal basis for our data collection, as it has 346,742 game entries along with ample information accompanying each game such as genres, release dates, and the studio that produced it. We were able to web scrape in Python from the IGDB API and obtain JSON files of all of this data.
     For human data, we created and distributed an online survey that asks users for their favorite indie games, as well as other games they like and profile questions such as their favorite gaming genres and their age.
     </p>
-  <li style="font-weight: bold;">Data storage tools</li>
-  <p>We created a Postgres database to store our massive amounts of data, which we can access from our website to efficiently give users recommendations.
-  </p>
   <li style="font-weight: bold;">Algorithm development methodology </li>
   <p>The algorithm was developed in multiple phases, the first model used the basic relationship between a user input and 5 independent variables that contain qualitative arrays. To quantify these variables, our algorithm creates a score based on the similarities between the user imputed game’s characteristics for each variable, and the characteristics of each datapoint in that variable. To do this, we take the conjunction of each data point in that specific variable, and divide it by the disjunction. The lengths of these corresponding outputs create a quantitative score that is summed over all independent variables to create a master score. 
     The second phase of the algorithm was adding in Indie weights. The larger game studios have more qualitative data, and thus generally receive higher recommendations. To be more inclusive, we included an Indie dummy variable that will augment the score of indie games, boosting their recommendation. 
