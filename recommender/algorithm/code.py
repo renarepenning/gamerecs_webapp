@@ -6,20 +6,21 @@ import threading
 import time
 import psycopg2
 import sys
+
 # WHITE DB -- Polished
 global OUTPUT
 OUTPUT = ""
 DATABASE_URL = "postgres://jfqbocymbesqkd:b0bdc1a7ecbf26b512954e7620a57c186be91d88ef9aee30a6ae12913b986d00@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d6ula8hn40666q"
 con = psycopg2.connect(DATABASE_URL)
 cur = con.cursor()
-# query 
+# query
 query = f"""SELECT * FROM public."dataframe";"""
 # return results as a dataframe
-df = pd.read_sql(query, con)#.set_index('id')
+df = pd.read_sql(query, con)  # .set_index('id')
 
-master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']#, 'Indie']
+master_cols = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords']  # , 'Indie']
 
-indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv")#.set_index('id')
+indie_df = pd.read_csv("recommender/algorithm/igdb_indie.csv")  # .set_index('id')
 indie_df['Indie'] = '[1]'
 df['Indie'] = indie_df['Indie']
 df['Indie'].fillna('[0]', inplace=True)
@@ -35,9 +36,9 @@ def disjunction(lst1, lst2):
 
 def clean(array):
     try:
-        #array = array.split('[')[1].split(']')[0].split(', ')
+        # array = array.split('[')[1].split(']')[0].split(', ')
         array = array.split(', ')
-    except (AttributeError, IndexError, TypeError, ValueError):
+    except:
         print(array)
     return list(map(lambda x: int(x), array))
 
@@ -71,7 +72,7 @@ def get_input(game, df=df):
         df = df[df['name'] == game].iloc[0]
         df['Indie'] = '[1]'
         return df
-    except (AttributeError, IndexError, TypeError, ValueError):
+    except:
         print('ERR -- Get Input')
     # print("GET INPUT")
     # try:
@@ -81,14 +82,14 @@ def get_input(game, df=df):
     #     print('ERR - getinput')
 
 
-def transform( test, columns=master_cols, df=df):
+def transform(test, columns=master_cols, df=df):
     global OUTPUT
     df = df.set_index("name")
     df['name'] = df.index
     # print("got name")
     master = pd.DataFrame(columns=master_cols,
                           index=df.index.tolist())
-    
+
     out_columns = ['name']
     df['Columns Counted'] = 0
     start = time.time()
@@ -101,8 +102,8 @@ def transform( test, columns=master_cols, df=df):
             ser = pd.DataFrame(transform_column(test, col, df=df))
             master = master.join(ser)
             out_cols.append(col)
-        except (AttributeError, IndexError, TypeError, ValueError):
-            #print("ERR -- ", col)
+        except:
+            # print("ERR -- ", col)
             pass
     weights = np.random.dirichlet(np.ones(len(columns)), size=1)[0]
 
@@ -113,7 +114,7 @@ def transform( test, columns=master_cols, df=df):
         weight_dict[columns[index]] = weight
         try:
             master[columns[index]] = master[columns[index]] * weight
-        except (AttributeError, IndexError, TypeError, ValueError):
+        except:
             pass
 
     master = master[out_cols]
@@ -121,14 +122,14 @@ def transform( test, columns=master_cols, df=df):
     wdf = pd.DataFrame(pd.Series(weight_dict)).T
     if 'HistoricalData.csv' not in os.listdir():
         wdf.to_csv("HistoricalData.csv")
-       
+
     else:
         pdf = pd.read_csv('HistoricalData.csv', index_col=0)
         pdf = pdf.append(weight_dict, ignore_index=True)
         pdf.to_csv('HistoricalData.csv')
         print(pdf)
-   
-    #print(pd.DataFrame(master))
+
+    # print(pd.DataFrame(master))
     master['Total'] = master.sum(axis=1)
     end = time.time() - start
     o1 = ' Transform Time: ' + str("{:.2f}".format(end)) + '\n'
@@ -138,7 +139,7 @@ def transform( test, columns=master_cols, df=df):
     return master.sort_values('Total'), weight_dict
 
 
-def get_game(game:str or list, num=6):
+def get_game(game: str or list, num=6):
     if type(game) == str:
         test = get_input(game)
         df, weights = transform(test)
@@ -148,10 +149,11 @@ def get_game(game:str or list, num=6):
         return df.head(num).index.tolist(), weights
 
 
-
 """
 Possible future add on
 """
+
+
 def multiple_games(games: list, df=df,
                    columns: list = ['genres', 'themes', 'game_modes', 'tags', 'platforms', 'keywords'],
                    num=6):
@@ -180,7 +182,7 @@ def multiple_games(games: list, df=df,
         thread.join()
 
     for game in games:
-        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv',index_col=0)['Total'])
+        pdf = pd.DataFrame(pd.read_csv(f'Saver/{game}.csv', index_col=0)['Total'])
         pdf[game] = pdf['Total']
         master = master.join(pdf[[game]])
 
@@ -214,23 +216,24 @@ def preprocess(df: pd.DataFrame, columns=master_cols):
     print(out2)
     OUTPUT += out1 + out2
 
+
 def formatOutput(recs):
     outputStr = "\n\n"
     for i in range(1, len(recs)):
         outputStr += str(i) + ". " + recs[i] + "\n\n"
     return outputStr
 
+
 def getRec(game):
-    try:
-        games, weights = get_game(game)
-        return formatOutput(games), OUTPUT
-    except (AttributeError, IndexError, TypeError, ValueError):
-        pass
+    games, weights = get_game(game)
+    return formatOutput(games), OUTPUT
 
 
 """
 USED FOR TESTING
 """
+
+
 def build_ul(df=df):
     front = '''<li><a href="#">'''
     back = '''</a></li>'''
@@ -242,12 +245,14 @@ def build_ul(df=df):
                 line = '\t' + front + game + back + '\n'
                 print(line)
                 f.write(line)
-            except (AttributeError, IndexError, TypeError, ValueError):
+            except:
                 pass
 
         f.write('</ul>')
         print('</ul>')
         f.close()
+
+
 def save_file(game, columns: list, df: pd.DataFrame = df):
     if not os.path.exists("Saver"):
         os.mkdir('Saver')
@@ -255,5 +260,5 @@ def save_file(game, columns: list, df: pd.DataFrame = df):
         row = get_input(game)
         df = transform(row)
         df.to_csv(f'Saver/{game}.csv')
-    except (AttributeError, IndexError, TypeError, ValueError):
+    except:
         print(game, ' ERR')
