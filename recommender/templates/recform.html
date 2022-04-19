@@ -15,6 +15,10 @@
     padding: 15px;
     margin: 15px;
   }
+  .messages{
+    color: #ff0000;
+    font-size: large;
+  }
 </style>
 <br><br><br><br><br>
 <!-- https://www.youtube.com/watch?v=ATuS7vpVc0I-->
@@ -51,7 +55,14 @@
       <p id="title">Recommendations for "{{obj.games}}"" fans: </p>
       <div id="user-out">{{obj.rec|linebreaksbr}}</div>
     </div>
-    
+
+    {% endif %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
     <!-- POSS GET RID OF DUPE RECS-->
   </div>
