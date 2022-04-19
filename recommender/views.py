@@ -38,7 +38,7 @@ def get_rec(request, *args, **kwargs):
             obj.rec, output = getRec(obj.games) ## CALL FUNCTION ON THE GAME THAT WAS INPUT
             obj.save()
         except (AttributeError, IndexError, TypeError, ValueError):
-            pass
+            messages.info(request, 'Please select a valid game from auto-fill options!')
         form = RecForm()  # returned cleaned form
     return render(request, "recform.html", {"form": form, "obj":obj, "output":output})
 
