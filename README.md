@@ -5,14 +5,14 @@
 
 https://game-recs.herokuapp.com/
 
-Beta app created with Django and deployed on Heroku.
-
 ## Branches
-###### `deploy`
+###### `deploy` - Final
 Branch with code to use Hobby Dev Heroku plan (paid)
 
-###### `main`
-Contains code that is currently deployed on Heroku - contains less rows to comply with Heroku free plan.
+###### `main` - Persistent version
+Contains code that is currently deployed on Heroku - contains less rows to remain on Heroku free plan.
 
-Beta version code: https://github.com/renarepenning/VideoGameRecommender
+[Beta version code](https://github.com/renarepenning/VideoGameRecommender)
+
+[Gantt Project Backlog](https://docs.google.com/spreadsheets/d/15e7zwXxmEUFTCWr610AnX1VBL8vv_givecmanFnW84s/edit?usp=sharing)
 
