@@ -13,3 +13,5 @@ Branch with code to use Hobby Dev Heroku plan (paid)
 ### `main`
 Contains code that is currently deployed on Heroku - contains less rows to comply with Heroku free plan.
 
+Beta version code: https://github.com/renarepenning/VideoGameRecommender
+
