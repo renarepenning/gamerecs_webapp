@@ -120,13 +120,13 @@ def transform(test, columns=master_cols, df=df):
     master = master[out_cols]
     print("before historical data")
     wdf = pd.DataFrame(pd.Series(weight_dict)).T
-    if 'HistoricalData.csv' not in os.listdir():
-        wdf.to_csv("HistoricalData.csv")
+    if 'recommender/algorithm/HistoricalData.csv' not in os.listdir():
+        wdf.to_csv("recommender/algorithm/HistoricalData.csv")
 
     else:
-        pdf = pd.read_csv('HistoricalData.csv', index_col=0)
+        pdf = pd.read_csv('/HistoricalData.csv', index_col=0)
         pdf = pdf.append(weight_dict, ignore_index=True)
-        pdf.to_csv('HistoricalData.csv')
+        pdf.to_csv('recommender/algorithm/HistoricalData.csv')
         print(pdf)
 
     # print(pd.DataFrame(master))
