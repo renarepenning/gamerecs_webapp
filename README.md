@@ -6,7 +6,7 @@ Senior Year Computer Science Capstone Project - Tulane University 2021-2022
 https://game-recs.herokuapp.com/
 
 ## Branches
-###### `deploy` - Final
+###### `deploy` - Full version
 Branch with code to use Hobby Dev Heroku plan (paid)
 
 ###### `main` - Persistent version
