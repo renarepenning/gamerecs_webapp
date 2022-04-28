@@ -37,6 +37,8 @@ def get_rec(request, *args, **kwargs):
         try:
             obj.rec, output = getRec(obj.games) ## CALL FUNCTION ON THE GAME THAT WAS INPUT
             obj.save()
+        # If user inputs an invalid game (not in our DB), print a message notifying
+        # them to choose a game from the dropdown, rather than throwing an error
         except (AttributeError, IndexError, TypeError, ValueError):
             messages.info(request, 'Please select a valid game from auto-fill options!')
         form = RecForm()  # returned cleaned form
