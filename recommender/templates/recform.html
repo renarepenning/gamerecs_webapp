@@ -15,6 +15,7 @@
     padding: 15px;
     margin: 15px;
   }
+   /* Format message that notifies user to choose valid game from dropdown */
   .messages{
     color: #ff0000;
     font-size: large;
@@ -57,6 +58,8 @@
     </div>
 
     {% endif %}
+
+    <!-- When user inputs invalid game, display message to user to choose valid game from dropdown -->
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -74,7 +77,8 @@
   {% endif %}
 </div>
 
-<script>
+<script>// JavaScript functions to implement filter search for game selections
+// Derived from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
 function autocomplete(inp, arr) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
@@ -91,6 +95,7 @@ function autocomplete(inp, arr) {
           b = document.createElement("DIV");
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
+          // Delimit apostrophes in html
           b.innerHTML += "<input type='hidden' value='" + arr[i].replace(/'/g,'&#x27;') + "'>";
           b.addEventListener("click", function(e) {
               inp.value = this.getElementsByTagName("input")[0].value;
