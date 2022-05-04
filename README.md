@@ -12,11 +12,13 @@ Branch with code to use Hobby Dev Heroku plan (paid)
 ###### `main` - Persistent version
 Contains code that is currently deployed on Heroku - contains less rows to remain on Heroku free plan.
 
+[Poster](poster.png)
+
 [Test feedback](betatest_feedback.csv)
 
 [Beta version code](https://github.com/renarepenning/VideoGameRecommender)
 
 [Gantt Project Backlog](https://docs.google.com/spreadsheets/d/15e7zwXxmEUFTCWr610AnX1VBL8vv_givecmanFnW84s/edit?usp=sharing)
 
-[Poster](poster.png)
+[Original Survey](https://docs.google.com/spreadsheets/d/1vanuclgYFQU4Ex5IZWORW0EVqrYKykCqBGTZkM-bfWo/edit?usp=sharing)
 
